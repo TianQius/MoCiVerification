@@ -28,7 +28,7 @@
 git clone https://github.com/TianQius/MoCiVerification.git
 ```
 ### Release下载运行
-
+- 📥 下载最新版本：[Releases](https://github.com/TianQius/MoCiVerification/releases)
 ## ⚠️ 安全建议
 - 不要攻击！不要攻击！不要攻击！重要的事情说三遍
 - 不要抓包！不要抓包！不要抓包！重要的事情说三遍
