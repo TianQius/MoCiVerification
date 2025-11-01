@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <ApplicationIcon>favicon.ico</ApplicationIcon>
+        <Company>MoCi Team</Company>
+        <Product>陌辞云网络验证</Product>
+        <FileVersion>1.0</FileVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DebugType>none</DebugType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="Assets\" />
+        <AvaloniaResource Include="Assets\**"/>
+        <Folder Include="Converters\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.3.7" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.3.7" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.7" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.7">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">none</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="3.0.0-preview3.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0-rc.1.25451.107" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0-rc.1.25451.107" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+        <PackageReference Include="SukiUI" Version="6.0.4-nightly20250930" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\Windows\MainLoginView.axaml.cs">
+        <DependentUpon>MainLoginView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Windows\MainMoCiView.axaml.cs">
+        <DependentUpon>MainMoCiView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+</Project>

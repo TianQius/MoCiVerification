@@ -1,0 +1,56 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+             xmlns:vm="using:MoCiVerification.ViewModels"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:VersionViewModel"
+             x:Class="MoCiVerification.Views.VersionView">
+    <suki:GlassCard Margin="50" 
+                    animations:SquishyOverExtensions.Enable="True"
+                    animations:SquishyOverExtensions.Intensity="0.015"
+                    animations:SquishyOverExtensions.SquishDepth="0.015">
+        <suki:BusyArea BusyText="正在加载..." IsBusy="{Binding IsLoading}">
+        <suki:GroupBox>
+            <suki:GroupBox.Header>
+                <DockPanel>
+                    <TextBlock Classes="Flat" Text="版本管理" DockPanel.Dock="Left" FontSize="18" VerticalAlignment="Center"/>
+                    <Button Classes="Flat" Width="100" Content="创建版本" HorizontalAlignment="Right" DockPanel.Dock="Right" Command="{Binding CreateVersion}" />
+                </DockPanel>
+            </suki:GroupBox.Header> 
+                <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"
+                          MaxHeight="800"
+                          CanUserResizeColumns="True"
+                          ItemsSource="{Binding DataGridContent}">
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridRowGroupHeader">
+                            <Setter Property="IsItemCountVisible" Value="True" />
+                        </Style>
+                    </DataGrid.Styles>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="刷新" Command="{Binding Reflash}"/>
+                            <MenuItem Header="-"/>
+                            <MenuItem Header="停用版本" Command="{Binding StopVersion}"/>
+                            <MenuItem Header="删除版本" Command="{Binding DeleteVersion}"/>
+                            <MenuItem Header="恢复版本" Command="{Binding RecoverVersion}"/>
+                            <MenuItem Header="修改数据"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Version, DataType=vm:VersionDataGridContentViewModel}" Header="版本号" />
+                        <DataGridTextColumn Binding="{Binding UpdataTime, DataType=vm:VersionDataGridContentViewModel}" Header="更新时间" />
+                        <DataGridTextColumn Binding="{Binding Announcement, DataType=vm:VersionDataGridContentViewModel}" Header="公告" MaxWidth="100" />
+                        <DataGridTextColumn Binding="{Binding Data, DataType=vm:VersionDataGridContentViewModel}" Header="数据" />
+                        <DataGridTextColumn Binding="{Binding State, DataType=vm:VersionDataGridContentViewModel}" Header="状态" />
+                    </DataGrid.Columns>
+                </DataGrid>
+        </suki:GroupBox>
+            </suki:BusyArea>
+    </suki:GlassCard>
+
+    
+    
+</UserControl>

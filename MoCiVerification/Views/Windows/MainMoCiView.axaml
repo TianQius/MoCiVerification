@@ -1,0 +1,227 @@
+<suki:SukiWindow xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MoCiVerification.ViewModels"
+        xmlns:me="using:MoCiVerification"
+        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:theme="https://github.com/kikipoulet/SukiUI"
+        mc:Ignorable="d" Width="1200" Height="800"
+        x:Class="MoCiVerification.Views.MainMoCiView"
+        IsMenuVisible="True" Background="Transparent"
+        x:DataType="vm:MainMoCiViewModel"
+        BackgroundStyle="{Binding BackgroundStyle}"
+        Title="陌辞云网络验证">
+    <suki:SukiWindow.MenuItems>
+        <MenuItem Header="API调用(A)">
+            <MenuItem Header="C++" Command="{Binding OpenUrlCommand}" CommandParameter="https://www.ilanzou.com/s/rcMNTGZh">
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="LanguageCpp" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Java" Command="{Binding OpenUrlCommand}" CommandParameter="https://www.ilanzou.com/s/rcMNTGZh">
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="LanguageJava" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="C#" Command="{Binding OpenUrlCommand}" CommandParameter="https://www.ilanzou.com/s/rcMNTGZh">
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="LanguageCsharp" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="易模块" Command="{Binding OpenUrlCommand}" CommandParameter="https://www.ilanzou.com/s/rcMNTGZh">
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="AlphaE" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </MenuItem>
+        <MenuItem Header="工具(T)">
+            <MenuItem Header="混淆器(待)">
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="Shield" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </MenuItem>
+        <MenuItem Header="帮助(H)">
+            <MenuItem Header="加入群聊" Command="{Binding OpenUrlCommand}" CommandParameter="https://qm.qq.com/q/Hqt2UV0fm">
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="School" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="提交反馈..." Command="{Binding OpenUrlCommand}" CommandParameter="https://qm.qq.com/q/Hqt2UV0fm">
+            </MenuItem>
+            <MenuItem Header="关于" >
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="About" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </MenuItem>
+    </suki:SukiWindow.MenuItems>
+    <suki:SukiWindow.Hosts>
+        <suki:SukiToastHost Manager="{Binding ToastManager}" />
+        <suki:SukiDialogHost Manager="{Binding DialogManager}" />
+    </suki:SukiWindow.Hosts>
+    <suki:SukiWindow.LogoContent>
+            <PathIcon Width="20"
+                      Height="20"
+                      Classes="AppIcon"
+                      Foreground="{DynamicResource SukiPrimaryColor}"
+                      IsVisible="{Binding $parent[suki:SukiWindow].((vm:MainMoCiViewModel)DataContext).TitleBarVisible}"
+                      PointerPressed="InputElement_OnPointerPressed"
+                      Data="M124.500,2.500 C125.167,10.833 125.833,19.168 126.500,27.500 C138.839,27.059 147.424,28.267 154.500,32.500 C153.500,33.500 152.500,34.500 151.500,35.500 C147.500,39.833 143.500,44.167 139.500,48.500 C126.168,48.500 112.832,48.500 99.500,48.500 C110.948,48.257 128.320,48.182 136.500,52.500 C134.167,55.166 131.833,57.834 129.500,60.500 C129.167,60.500 128.833,60.500 128.500,60.500 C80.194,58.943 39.211,60.693 21.500,92.500 C22.833,96.833 24.167,101.167 25.500,105.500 C22.167,104.500 18.833,103.500 15.500,102.500 C11.548,97.367 8.791,95.904 8.500,86.500 C10.833,81.167 13.167,75.833 15.500,70.500 C8.990,72.508 6.138,75.922 1.500,79.500 C7.393,57.958 26.194,52.520 41.500,40.500 C36.287,38.210 30.249,38.099 26.500,34.500 C33.774,36.037 47.155,35.598 53.500,32.500 C43.978,28.732 32.001,29.897 24.500,24.500 C61.489,30.025 108.206,21.990 124.500,2.500 Z M113.500,78.500 C124.383,80.413 133.153,87.836 133.500,100.500 C120.259,129.857 72.052,111.482 59.500,132.500 C57.695,134.848 57.350,135.349 58.500,138.500 C61.783,145.376 70.823,149.205 78.500,151.500 C78.500,151.833 78.500,152.167 78.500,152.500 C58.602,152.794 18.403,137.698 27.500,116.500 C40.591,90.414 97.132,105.451 114.500,83.500 C114.167,81.834 113.833,80.167 113.500,78.500 Z"
+                      ToolTip.Tip="点击切换菜单" />
+        </suki:SukiWindow.LogoContent>
+        
+         <suki:SukiWindow.RightWindowTitleBarControls>
+        <Button Classes="WindowControlsButton" Command="{Binding GetOptions}">
+            <avalonia:MaterialIcon Foreground="{DynamicResource SukiText}" Kind="Cog" />
+            <Button.Flyout>
+                <Flyout>
+                    <Panel>
+                        <Border Margin="20"
+                                BoxShadow="{DynamicResource SukiPopupShadow}"
+                                CornerRadius="20" />
+
+                        <Border MinWidth="350"
+                                Margin="20"
+                                Background="{DynamicResource SukiCardBackground}"
+                                BorderBrush="{DynamicResource SukiLightBorderBrush}"
+                                BorderThickness="1"
+                                ClipToBounds="True"
+                                CornerRadius="15">
+                            <Border Padding="15" Background="{DynamicResource PopupGradientBrush}">
+
+                                <StackPanel Margin="0,0,0,0" Spacing="20">
+                                    <suki:GlassCard Padding="15" CornerRadius="15">
+
+                                        <DockPanel>
+                                            <TextBlock Margin="0,0,0,0"
+                                                       DockPanel.Dock="Top"
+                                                       FontSize="15"
+                                                       FontWeight="DemiBold"
+                                                       Text="解绑次数" />
+                                            <Button Margin="10,5,0,0" DockPanel.Dock="Right"
+                                                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                                                    Classes="Flat" FontWeight="DemiBold"
+                                                    Content="修改"  Command="{Binding ChangeBindTimes}"/>
+                                            <TextBox theme:TextBoxExtensions.Prefix="{avalonia:MaterialIconExt Kind=Numbers}"
+                                                     DockPanel.Dock="Bottom" VerticalAlignment="Bottom"
+                                                     Classes="clearButton"  Text="{Binding BindCount}"
+                                                     Watermark="输入绑定次数"/>
+                                        </DockPanel>
+
+                                    </suki:GlassCard>
+                                    <suki:GlassCard Padding="15" CornerRadius="15">
+                                        <DockPanel>
+                                            <ToggleSwitch VerticalAlignment="Center"
+                                                          DockPanel.Dock="Right"  Command="{Binding SetVarOption}"
+                                                          IsChecked="{Binding UseCloudVar}" />
+                                            <TextBlock Margin="0,8,0,0"
+                                                       VerticalAlignment="Center"
+                                                       DockPanel.Dock="Bottom"
+                                                       Foreground="{DynamicResource SukiLowText}"
+                                                       Text="当前选中项目启用云变量" />
+                                            <TextBlock VerticalAlignment="Center"
+                                                       FontSize="15"
+                                                       FontWeight="DemiBold"
+                                                       Text="云变量" />
+
+                                        </DockPanel>
+                                    </suki:GlassCard>
+                                </StackPanel>
+
+                            </Border>
+                        </Border>
+                    </Panel>
+                </Flyout>
+            </Button.Flyout>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </Button>
+         </suki:SukiWindow.RightWindowTitleBarControls>
+        <suki:SukiSideMenu IsSearchEnabled="True"
+                       ItemsSource="{Binding Pages}"
+                       SelectedItem="{Binding ActivePage}">
+        <suki:SukiSideMenu.Styles>
+            <Style Selector="Image.AppIcon">
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <DoubleTransition Property="Opacity" Duration="0.1" />
+                    </Transitions>
+                </Setter>
+                <Style Selector="^:pointerover">
+                    <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
+                </Style>
+            </Style>
+        </suki:SukiSideMenu.Styles>
+        <suki:SukiSideMenu.ItemTemplate>
+            <DataTemplate>
+                <suki:SukiSideMenuItem Classes="Compact" Header="{Binding DisplayName}">
+                    <suki:SukiSideMenuItem.Icon>
+                        <avalonia:MaterialIcon Kind="{Binding Icon}" />
+                    </suki:SukiSideMenuItem.Icon>
+                </suki:SukiSideMenuItem>
+            </DataTemplate>
+        </suki:SukiSideMenu.ItemTemplate>
+        <suki:SukiSideMenu.HeaderContent>
+            
+            <PathIcon Width="80"
+                      Height="80"
+                      Margin="30,10,30,30"
+                      Classes="AppIcon"
+                      Foreground="{DynamicResource SukiPrimaryColor}"
+                      IsVisible="{Binding $parent[suki:SukiWindow].((vm:MainMoCiViewModel)DataContext).TitleBarVisible}"
+                      PointerPressed="InputElement_OnPointerPressed"
+                      Data="M124.500,2.500 C125.167,10.833 125.833,19.168 126.500,27.500 C138.839,27.059 147.424,28.267 154.500,32.500 C153.500,33.500 152.500,34.500 151.500,35.500 C147.500,39.833 143.500,44.167 139.500,48.500 C126.168,48.500 112.832,48.500 99.500,48.500 C110.948,48.257 128.320,48.182 136.500,52.500 C134.167,55.166 131.833,57.834 129.500,60.500 C129.167,60.500 128.833,60.500 128.500,60.500 C80.194,58.943 39.211,60.693 21.500,92.500 C22.833,96.833 24.167,101.167 25.500,105.500 C22.167,104.500 18.833,103.500 15.500,102.500 C11.548,97.367 8.791,95.904 8.500,86.500 C10.833,81.167 13.167,75.833 15.500,70.500 C8.990,72.508 6.138,75.922 1.500,79.500 C7.393,57.958 26.194,52.520 41.500,40.500 C36.287,38.210 30.249,38.099 26.500,34.500 C33.774,36.037 47.155,35.598 53.500,32.500 C43.978,28.732 32.001,29.897 24.500,24.500 C61.489,30.025 108.206,21.990 124.500,2.500 Z M113.500,78.500 C124.383,80.413 133.153,87.836 133.500,100.500 C120.259,129.857 72.052,111.482 59.500,132.500 C57.695,134.848 57.350,135.349 58.500,138.500 C61.783,145.376 70.823,149.205 78.500,151.500 C78.500,151.833 78.500,152.167 78.500,152.500 C58.602,152.794 18.403,137.698 27.500,116.500 C40.591,90.414 97.132,105.451 114.500,83.500 C114.167,81.834 113.833,80.167 113.500,78.500 Z"
+                      ToolTip.Tip="点击切换菜单" />
+        </suki:SukiSideMenu.HeaderContent>
+        <suki:SukiSideMenu.FooterContent>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <StackPanel.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Command" Value="{Binding OpenUrlCommand}" />
+                    </Style>
+                    <Style Selector="avalonia|MaterialIcon">
+                        <Setter Property="Width" Value="25" />
+                        <Setter Property="Height" Value="25" />
+                    </Style>
+                </StackPanel.Styles>
+                <Button Classes="Basic"
+                        CommandParameter="https://bbs.moci6.com"
+                        ToolTip.Tip="Open On BBS">
+                    <avalonia:MaterialIcon Kind="Forum" />
+                </Button>
+                <Button Classes="Basic"
+                        CommandParameter="https://qm.qq.com/q/bX2KdF9IDm"
+                        ToolTip.Tip="Go to qq">
+                    <avalonia:MaterialIcon Kind="Qqchat" />
+                </Button>
+                <Button Classes="Basic"
+                        CommandParameter="mailto:moci2020@foxmail.com?subject=Help"
+                        ToolTip.Tip="Send Email">
+                    <avalonia:MaterialIcon Kind="Email" />
+                </Button>
+            </StackPanel>
+        </suki:SukiSideMenu.FooterContent>
+    </suki:SukiSideMenu>
+        
+        
+        
+        
+        
+        
+        
+
+</suki:SukiWindow>

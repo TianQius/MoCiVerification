@@ -1,0 +1,76 @@
+﻿<suki:SukiWindow xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="450"
+        x:Class="MoCiVerification.Views.Windows.AddCustomDataView"
+        xmlns:icon="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI"
+        xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+        xmlns:vm="using:MoCiVerification.ViewModels" 
+        x:DataType="vm:AddCustomDataViewModel" Width="350" Height="450"
+        Title="创建自定义数据">
+        <suki:SukiWindow.LogoContent>
+                <PathIcon Width="20"
+                          Height="20"
+                          Classes="AppIcon"
+                          Foreground="{DynamicResource SukiPrimaryColor}"
+                          Data="M124.500,2.500 C125.167,10.833 125.833,19.168 126.500,27.500 C138.839,27.059 147.424,28.267 154.500,32.500 C153.500,33.500 152.500,34.500 151.500,35.500 C147.500,39.833 143.500,44.167 139.500,48.500 C126.168,48.500 112.832,48.500 99.500,48.500 C110.948,48.257 128.320,48.182 136.500,52.500 C134.167,55.166 131.833,57.834 129.500,60.500 C129.167,60.500 128.833,60.500 128.500,60.500 C80.194,58.943 39.211,60.693 21.500,92.500 C22.833,96.833 24.167,101.167 25.500,105.500 C22.167,104.500 18.833,103.500 15.500,102.500 C11.548,97.367 8.791,95.904 8.500,86.500 C10.833,81.167 13.167,75.833 15.500,70.500 C8.990,72.508 6.138,75.922 1.500,79.500 C7.393,57.958 26.194,52.520 41.500,40.500 C36.287,38.210 30.249,38.099 26.500,34.500 C33.774,36.037 47.155,35.598 53.500,32.500 C43.978,28.732 32.001,29.897 24.500,24.500 C61.489,30.025 108.206,21.990 124.500,2.500 Z M113.500,78.500 C124.383,80.413 133.153,87.836 133.500,100.500 C120.259,129.857 72.052,111.482 59.500,132.500 C57.695,134.848 57.350,135.349 58.500,138.500 C61.783,145.376 70.823,149.205 78.500,151.500 C78.500,151.833 78.500,152.167 78.500,152.500 C58.602,152.794 18.403,137.698 27.500,116.500 C40.591,90.414 97.132,105.451 114.500,83.500 C114.167,81.834 113.833,80.167 113.500,78.500 Z"/>
+        </suki:SukiWindow.LogoContent>
+    <Grid Margin="15">
+        <suki:GlassCard Width="300" Margin="0,10,0,35"
+                        animations:SquishyOverExtensions.Enable="True"
+                        animations:SquishyOverExtensions.Intensity="0.05"
+                        animations:SquishyOverExtensions.SquishDepth="0.05">
+            <suki:BusyArea IsBusy="{Binding IsAddingData}">
+                <StackPanel >
+                    <TextBlock Margin="6,0,0,3"
+                                       FontWeight="DemiBold" 
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Key" />
+                            <TextBox suki:TextBoxExtensions.Prefix="{icon:MaterialIconExt Kind=Key}"
+                                     Classes="clearButton"
+                                     Text="{Binding Key}"
+                                     Watermark="Input your key" />
+                    <TextBlock Margin="6,10,0,3"
+                               FontWeight="DemiBold" 
+                               Foreground="{DynamicResource SukiLowText}"
+                               Text="Value" />
+                    <TextBox suki:TextBoxExtensions.Prefix="{icon:MaterialIconExt Kind=Database}"
+                             Classes="clearButton"
+                             Text="{Binding Value}"
+                             Watermark="Input your value" />
+                            <TextBlock Margin="6,10,0,3"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="获取方法" />
+                            <ComboBox  Margin="-5,0,0,0" SelectedIndex="0" SelectedValue="{Binding GetWay}">
+                                <ComboBoxItem Content="直接获取"/>
+                                <ComboBoxItem Content="登录获取"/>
+                            </ComboBox>
+                            <TextBlock Margin="6,10,0,3"
+                                       FontWeight="DemiBold" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="备注" />
+                            <TextBox suki:TextBoxExtensions.Prefix="{icon:MaterialIconExt Kind=DramaMasks}"
+                                     Classes="clearButton" TextWrapping="Wrap"
+                                     Text="{Binding Mark}"
+                                     Watermark="Your announcement"/>
+                </StackPanel>
+            </suki:BusyArea>
+            
+            
+            
+        </suki:GlassCard>
+        <Button Width="160"
+                Height="40"
+                Margin="0,0,0,20"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Classes="Flat" FontWeight="DemiBold"
+                suki:ButtonExtensions.ShowProgress="{Binding IsAddingData}"
+                Command="{Binding AddCustomData, StringFormat='Cmd: {0}'}" 
+                Content="创建数据" />
+    </Grid>
+        
+</suki:SukiWindow>

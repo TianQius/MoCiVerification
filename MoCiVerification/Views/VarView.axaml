@@ -1,0 +1,48 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+             xmlns:vm="using:MoCiVerification.ViewModels"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:VarViewModel"
+             x:Class="MoCiVerification.Views.VarView">
+    <suki:GlassCard Margin="50" 
+                    animations:SquishyOverExtensions.Enable="True"
+                    animations:SquishyOverExtensions.Intensity="0.015"
+                    animations:SquishyOverExtensions.SquishDepth="0.015">
+        <suki:BusyArea BusyText="正在加载..." IsBusy="{Binding IsLoading}">
+        <suki:GroupBox>
+            <suki:GroupBox.Header>
+                <DockPanel>
+                    <TextBlock Classes="Flat" Text="云变量" DockPanel.Dock="Left" FontSize="18" VerticalAlignment="Center"/>
+                </DockPanel>
+            </suki:GroupBox.Header> 
+                <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"
+                          MaxHeight="800"
+                          CanUserResizeColumns="True"
+                          ItemsSource="{Binding DataGridContent}">
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridRowGroupHeader">
+                            <Setter Property="IsItemCountVisible" Value="True" />
+                        </Style>
+                    </DataGrid.Styles>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="刷新" Command="{Binding Reflash}"/>
+                            <MenuItem Header="-"/>
+                            <MenuItem Header="删除云变量" Command="{Binding DeleteVar}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Name, DataType=vm:VarDataGridContentViewModel}" Header="名称" MaxWidth="150"/>
+                        <DataGridTextColumn Binding="{Binding Value, DataType=vm:VarDataGridContentViewModel}" Header="值" MaxWidth="200"/>
+                        <DataGridTextColumn Binding="{Binding Ip, DataType=vm:VarDataGridContentViewModel}" Header="Ip" MaxWidth="100" />
+                    </DataGrid.Columns>
+                </DataGrid>
+        </suki:GroupBox>
+            </suki:BusyArea>
+    </suki:GlassCard>
+    
+</UserControl>

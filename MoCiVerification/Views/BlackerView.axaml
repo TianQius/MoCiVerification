@@ -1,0 +1,50 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:MoCiVerification.ViewModels"
+             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:BlackerViewModel"
+             x:Class="MoCiVerification.Views.BlackerView">
+    <suki:GlassCard Margin="50" 
+                    animations:SquishyOverExtensions.Enable="True"
+                    animations:SquishyOverExtensions.Intensity="0.015"
+                    animations:SquishyOverExtensions.SquishDepth="0.015">
+        <suki:BusyArea BusyText="正在加载..." IsBusy="{Binding IsLoading}">
+        <suki:GroupBox>
+            <suki:GroupBox.Header>
+                <DockPanel>
+                    <TextBlock Classes="Flat" Text="黑名单" DockPanel.Dock="Left" FontSize="18" VerticalAlignment="Center"/>
+                    <Button Classes="Flat" Width="100" Content="创建黑名" HorizontalAlignment="Right" DockPanel.Dock="Right" />
+                </DockPanel>
+            </suki:GroupBox.Header> 
+                <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"
+                          MaxHeight="800"
+                          CanUserResizeColumns="True"
+                          ItemsSource="{Binding DataGridContent}">
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridRowGroupHeader">
+                            <Setter Property="IsItemCountVisible" Value="True" />
+                        </Style>
+                    </DataGrid.Styles>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="刷新" Command="{Binding Reflash}"/>
+                            <MenuItem Header="删除黑名" Command="{Binding DeleteBlacker}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Value, DataType=vm:BlackerDataGridContentViewModel}" Header="拉黑值"  MaxWidth="150" />
+                        <DataGridTextColumn Binding="{Binding Reason, DataType=vm:BlackerDataGridContentViewModel}" Header="原因" MaxWidth="150"/>
+                        <DataGridTextColumn Binding="{Binding Way, DataType=vm:BlackerDataGridContentViewModel}" Header="拉黑方式"  MaxWidth="150"/>
+                        <DataGridTextColumn Binding="{Binding Time, DataType=vm:BlackerDataGridContentViewModel}" Header="拉黑时间" MaxWidth="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+        </suki:GroupBox>
+            </suki:BusyArea>
+    </suki:GlassCard>
+
+    
+</UserControl>

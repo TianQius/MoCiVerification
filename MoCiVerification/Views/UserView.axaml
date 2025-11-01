@@ -1,0 +1,63 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:MoCiVerification.ViewModels"
+             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:UserViewModel"
+             x:Class="MoCiVerification.Views.UserView">
+     <suki:GlassCard Margin="50" 
+                    animations:SquishyOverExtensions.Enable="True"
+                    animations:SquishyOverExtensions.Intensity="0.015"
+                    animations:SquishyOverExtensions.SquishDepth="0.015">
+        <suki:BusyArea BusyText="正在加载..." IsBusy="{Binding IsLoading}">
+        <suki:GroupBox>
+            <suki:GroupBox.Header>
+                <DockPanel>
+                    <TextBlock Classes="Flat" Text="用户管理" DockPanel.Dock="Left" FontSize="18" VerticalAlignment="Center"/>
+                </DockPanel>
+            </suki:GroupBox.Header> 
+                <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"
+                          MaxHeight="800"
+                          CanUserResizeColumns="True"
+                          ItemsSource="{Binding DataGridContent}">
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridRowGroupHeader">
+                            <Setter Property="IsItemCountVisible" Value="True" />
+                        </Style>
+                    </DataGrid.Styles>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="刷新" Command="{Binding Reflash}"/>
+                            <MenuItem Header="查找用户(F)" Command="{Binding FindUser}"/>
+                            <MenuItem Header="-"/>
+                            <MenuItem Header="删除用户" Command="{Binding DeleteUser}"/>
+                            <MenuItem Header="停用用户" Command="{Binding StopUser}"/>
+                            <MenuItem Header="下线用户" Command="{Binding OffUser}"/>
+                            <MenuItem Header="恢复用户" Command="{Binding RecoverUser}"/>
+                            <MenuItem Header="修改用户属性(暂不可用)"/>
+                            <MenuItem Header="-"/>
+                            <MenuItem Header="解绑机器码" Command="{Binding UnBindUser}"/>
+                            <MenuItem Header="清空解绑次数" Command="{Binding ClearUserBindTimes}"/>
+                            <MenuItem Header="拉黑用户" Command="{Binding UserToBlacker}"/>
+                            <MenuItem Header="拉黑机器码" Command="{Binding MachineCodeToBlacker}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Card, DataType=vm:CardDataGridContentViewModel}" Header="卡号"  MaxWidth="150" />
+                        <DataGridTextColumn Binding="{Binding Type, DataType=vm:CardDataGridContentViewModel}" Header="类型" />
+                        <DataGridTextColumn Binding="{Binding Usedtime, DataType=vm:CardDataGridContentViewModel}" Header="使用时间" MaxWidth="110" />
+                        <DataGridTextColumn Binding="{Binding Createdtime, DataType=vm:CardDataGridContentViewModel}" Header="创建时间" MaxWidth="110" />
+                        <DataGridTextColumn Binding="{Binding Isused, DataType=vm:CardDataGridContentViewModel}" Header="使用" />
+                        <DataGridTextColumn Binding="{Binding UsedUser, DataType=vm:CardDataGridContentViewModel}" Header="使用者" MaxWidth="120"/>
+                        <DataGridTextColumn Binding="{Binding Remark, DataType=vm:CardDataGridContentViewModel}" Header="备注" />
+                        <DataGridTextColumn Binding="{Binding Marker, DataType=vm:CardDataGridContentViewModel}" Header="创建者" />
+                    </DataGrid.Columns>
+                </DataGrid>
+        </suki:GroupBox>
+            </suki:BusyArea>
+    </suki:GlassCard>
+    
+</UserControl>

@@ -1,0 +1,15 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MoCiVerification.App"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:local="using:MoCiVerification"
+             xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Styles>
+        <sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Red"  /> 
+        <StyleInclude Source="Styles/Icons.axaml" />
+        <avalonia:MaterialIconStyles />
+    </Application.Styles>
+</Application>

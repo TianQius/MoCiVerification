@@ -1,0 +1,58 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:MoCiVerification.ViewModels"
+             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:CardViewModel"
+             x:Class="MoCiVerification.Views.CardView">
+    <suki:GlassCard Margin="50" 
+                    animations:SquishyOverExtensions.Enable="True"
+                    animations:SquishyOverExtensions.Intensity="0.015"
+                    animations:SquishyOverExtensions.SquishDepth="0.015">
+        <suki:BusyArea BusyText="正在加载..." IsBusy="{Binding IsLoading}">
+        <suki:GroupBox>
+            <suki:GroupBox.Header>
+                <DockPanel>
+                    <TextBlock Classes="Flat" Text="卡密管理" DockPanel.Dock="Left" FontSize="18" VerticalAlignment="Center"/>
+                    <Button Classes="Flat" Width="100" Content="创建卡密" HorizontalAlignment="Right" DockPanel.Dock="Right" Command="{Binding CreateCard}" />
+                </DockPanel>
+            </suki:GroupBox.Header> 
+                <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"
+                          MaxHeight="800"
+                          CanUserResizeColumns="True"
+                          ItemsSource="{Binding DataGridContent}">
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridRowGroupHeader">
+                            <Setter Property="IsItemCountVisible" Value="True" />
+                        </Style>
+                    </DataGrid.Styles>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="刷新" Command="{Binding Reflash}"/>
+                            <MenuItem Header="查找卡密(F)" Command="{Binding FindCard}"/>
+                            <MenuItem Header="-"/>
+                            <MenuItem Header="删除卡密(不可多选)" Command="{Binding DeleteCard}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Card, DataType=vm:CardDataGridContentViewModel}" Header="卡号"  MaxWidth="150" />
+                        <DataGridTextColumn Binding="{Binding Type, DataType=vm:CardDataGridContentViewModel}" Header="类型" />
+                        <DataGridTextColumn Binding="{Binding Usedtime, DataType=vm:CardDataGridContentViewModel}" Header="使用时间" MaxWidth="110" />
+                        <DataGridTextColumn Binding="{Binding Createdtime, DataType=vm:CardDataGridContentViewModel}" Header="创建时间" MaxWidth="110" />
+                        <DataGridTextColumn Binding="{Binding Isused, DataType=vm:CardDataGridContentViewModel}" Header="使用" />
+                        <DataGridTextColumn Binding="{Binding UsedUser, DataType=vm:CardDataGridContentViewModel}" Header="使用者" MaxWidth="120"/>
+                        <DataGridTextColumn Binding="{Binding Remark, DataType=vm:CardDataGridContentViewModel}" Header="备注" />
+                        <DataGridTextColumn Binding="{Binding Marker, DataType=vm:CardDataGridContentViewModel}" Header="创建者" />
+                    </DataGrid.Columns>
+                </DataGrid>
+        </suki:GroupBox>
+            </suki:BusyArea>
+    </suki:GlassCard>
+
+    
+    
+    
+</UserControl>

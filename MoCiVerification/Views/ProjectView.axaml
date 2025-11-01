@@ -1,0 +1,63 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+             xmlns:vm="using:MoCiVerification.ViewModels"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:ProjectViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MoCiVerification.Views.ProjectView">
+    <suki:GlassCard Margin="50" 
+                    animations:SquishyOverExtensions.Enable="True"
+                    animations:SquishyOverExtensions.Intensity="0.015"
+                    animations:SquishyOverExtensions.SquishDepth="0.015">
+        <suki:BusyArea BusyText="正在加载..." IsBusy="{Binding IsLoading}">
+            <suki:GroupBox>
+            <suki:GroupBox.Header>
+                <DockPanel>
+                    <TextBlock Classes="Flat" Text="项目管理" DockPanel.Dock="Left" FontSize="18" VerticalAlignment="Center"/>
+                    <Button Classes="Flat" Width="100" Content="创建项目" HorizontalAlignment="Right" DockPanel.Dock="Right" Command="{Binding CreateNewProject}"/>
+                </DockPanel>
+            </suki:GroupBox.Header> 
+                <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"
+                          MaxHeight="800" SelectionChanged="OnSelectedChanged"
+                          CanUserResizeColumns="True"
+                          ItemsSource="{Binding DataGridContent}">
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridRowGroupHeader">
+                            <Setter Property="IsItemCountVisible" Value="True" />
+                        </Style>
+                    </DataGrid.Styles>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="刷新列表" Command="{Binding ReflashProjects}"/>
+                            <MenuItem Header="-"/>
+                            <MenuItem Header="停用项目" Command="{Binding StopProject}"/>
+                            <MenuItem Header="恢复项目" Command="{Binding RecoverProject}"/>
+                            <MenuItem Header="删除项目" Command="{Binding DeleteProject}"/>
+                            <MenuItem Header="修改项目公告" Command="{Binding ChangeProject}"/>
+                            <MenuItem Header="-"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding ProjectName, DataType=vm:ProjectDataGridContentViewModel}" Header="名称" />
+                        <DataGridTextColumn Binding="{Binding Token, DataType=vm:ProjectDataGridContentViewModel}" Header="令牌" MaxWidth="200" />
+                        <DataGridTextColumn Binding="{Binding Type, DataType=vm:ProjectDataGridContentViewModel}" Header="类型" />
+                        <DataGridTextColumn Binding="{Binding CreatedTime, DataType=vm:ProjectDataGridContentViewModel}" Header="创建日期" />
+                        <DataGridTextColumn Binding="{Binding Announcement, DataType=vm:ProjectDataGridContentViewModel}" Header="公告"  MaxWidth="100"/>
+                        <DataGridTextColumn Binding="{Binding State, DataType=vm:ProjectDataGridContentViewModel}" Header="状态" />
+                        <DataGridTextColumn Binding="{Binding Key, DataType=vm:ProjectDataGridContentViewModel}" Header="通信密钥" MaxWidth="150" />
+                    </DataGrid.Columns>
+                </DataGrid>
+        </suki:GroupBox>
+        </suki:BusyArea>
+    </suki:GlassCard>
+
+    
+    
+    
+    
+    
+    
+</UserControl>
