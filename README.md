@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-8.0-blue)](https://dotnet.microsoft.com/)
 [![Avalonia](https://img.shields.io/badge/UI-Avalonia-purple)](https://avaloniaui.net/)
-> 一个轻量级、安全的网络验证解决方案，支持软件授权、用户身份校验与许可证管理。
+> 一个轻量级、安全的网络验证解决方案，支持软件授权、用户身份校验与用户状态管理。
 >
 > 该项目为验证作者端源码，服务端代码重构中暂不开源，功能正常使用
 
