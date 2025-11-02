@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
@@ -15,7 +17,7 @@ public partial class AddCardViewModel:ObservableObject
     [ObservableProperty] private bool _isAddingCard = false;
     [ObservableProperty] private string _prefix;
     [ObservableProperty] private string _cardCount;
-    [ObservableProperty] private ComboBoxItem _cardTypeValue;
+    [ObservableProperty] private ComboBoxItem? _cardTypeValue;
     [ObservableProperty] private string _mark;
     private readonly IAdminService _adminService;
     private readonly ClientSettings _clientSettings;
@@ -34,20 +36,48 @@ public partial class AddCardViewModel:ObservableObject
         IsAddingCard = true;
         if (String.IsNullOrEmpty(Mark)) Mark = "无";
         else if (String.IsNullOrEmpty(Prefix)) Prefix = "无";
-        var r = await _adminService.CreateCard(_clientSettings.CurrentProjectName,
-            int.Parse(CardCount), (string)CardTypeValue.Content, Prefix, Mark);
-        if (r)
+
+        if (int.Parse(CardCount) > 50)
         {
             _toastManager.CreateSimpleInfoToast()
-                .WithTitle("卡密发生变化")
-                .WithContent("创建卡密成功！请耐心等待并刷新（有缓存）")
+                .WithTitle("无法创建卡密")
+                .WithContent("数量不应大于50")
                 .OfType(NotificationType.Success)
                 .Queue();
+        }
+        var r = await _adminService.CreateCard(_clientSettings.CurrentProjectName,
+            int.Parse(CardCount), (string)CardTypeValue.Content, Prefix, Mark);
+
+        if (r)
+        {
+            await WriteCardsToDesktopAsync(_clientSettings.GlobalMessage);
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("卡密发生变化")
+                .WithContent("创建卡密成功！已生成卡密至桌面（卡密_XXXXX.txt）")
+                .OfType(NotificationType.Success)
+                .Queue();
+            //_clientSettings.GlobalMessage 是卡密数据
             RequestClose?.Invoke();
         }
-        IsAddingCard=false;
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("创建卡密失败")
+                .WithContent(_clientSettings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
 
+        IsAddingCard = false;
 
+    }
+    
+    private static async Task WriteCardsToDesktopAsync(string cardData)
+    {
+        if (string.IsNullOrWhiteSpace(cardData))
+            return;
+        await File.WriteAllTextAsync(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"卡密_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt")
+            , cardData, Encoding.UTF8);
     }
     
     

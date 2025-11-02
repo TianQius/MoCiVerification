@@ -16,7 +16,7 @@ public partial class AddCustomDataViewModel:ObservableObject
     [ObservableProperty] private string _key;
     [ObservableProperty] private string _value;
     [ObservableProperty] private string _mark;
-    [ObservableProperty] private ComboBoxItem _getWay;
+    [ObservableProperty] private ComboBoxItem? _getWay;
     
     private readonly IAdminService _adminService;
     private readonly ClientSettings _clientSettings;
@@ -45,15 +45,23 @@ public partial class AddCustomDataViewModel:ObservableObject
         else
         {
             var r = await _adminService.CreateCustomData(_clientSettings.CurrentProjectName, Key, Value, Mark,
-                GetWay.Content.ToString());
+                (string)GetWay?.Content);
             if (r)
             {
                 _toastManager.CreateSimpleInfoToast()
-                    .WithTitle("卡密发生变化")
-                    .WithContent("创建卡密成功！请耐心等待并刷新（有缓存）")
+                    .WithTitle("数据发生变化")
+                    .WithContent("创建自定义数据成功！请耐心等待并刷新（有缓存）")
                     .OfType(NotificationType.Success)
                     .Queue();
                 RequestClose?.Invoke();
+            }
+            else
+            {
+                _toastManager.CreateSimpleInfoToast()
+                    .WithTitle("创建自定义数据失败")
+                    .WithContent(_clientSettings.GlobalMessage)
+                    .OfType(NotificationType.Error)
+                    .Queue();
             }
         }
         IsAddingData = false;

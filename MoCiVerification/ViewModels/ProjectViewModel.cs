@@ -121,6 +121,14 @@ public partial class ProjectViewModel:PageBase
                 .OfType(NotificationType.Success)
                 .Queue();
         }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("停用项目失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Success)
+                .Queue();
+        }
     }
     [RelayCommand]
     public async Task RecoverProject()
@@ -131,6 +139,14 @@ public partial class ProjectViewModel:PageBase
            _toastManager.CreateSimpleInfoToast()
                .WithTitle("项目发生变化")
                .WithContent("恢复项目成功！请耐心等待并刷新（有缓存）")
+               .OfType(NotificationType.Success)
+               .Queue();
+       }
+       else
+       {
+           _toastManager.CreateSimpleInfoToast()
+               .WithTitle("恢复项目失败")
+               .WithContent(_settings.GlobalMessage)
                .OfType(NotificationType.Success)
                .Queue();
        }
@@ -146,6 +162,14 @@ public partial class ProjectViewModel:PageBase
                 .WithTitle("项目发生变化")
                 .WithContent("删除项目成功！请耐心等待并刷新（有缓存）")
                 .OfType(NotificationType.Success)
+                .Queue();
+        }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("删除项目失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
                 .Queue();
         }
         

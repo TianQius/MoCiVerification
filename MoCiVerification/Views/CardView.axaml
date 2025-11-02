@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:MoCiVerification.ViewModels"
              xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+             xmlns:b="clr-namespace:MoCiVerification.Behaviors;assembly=MoCiVerification" 
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              x:DataType="vm:CardViewModel"
              x:Class="MoCiVerification.Views.CardView">
@@ -21,6 +22,7 @@
                 </DockPanel>
             </suki:GroupBox.Header> 
                 <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"
+                           b:DataGridBehaviors.SelectedItems="{Binding SelectedItems}"
                           MaxHeight="800"
                           CanUserResizeColumns="True"
                           ItemsSource="{Binding DataGridContent}">
@@ -34,7 +36,7 @@
                             <MenuItem Header="刷新" Command="{Binding Reflash}"/>
                             <MenuItem Header="查找卡密(F)" Command="{Binding FindCard}"/>
                             <MenuItem Header="-"/>
-                            <MenuItem Header="删除卡密(不可多选)" Command="{Binding DeleteCard}"/>
+                            <MenuItem Header="删除卡密(可多选)" Command="{Binding DeleteCard}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>

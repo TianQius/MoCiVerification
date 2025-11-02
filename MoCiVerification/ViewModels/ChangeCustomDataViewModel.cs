@@ -42,7 +42,6 @@ public partial class ChangeCustomDataViewModel:ObservableObject
             _clientSettings.CurrentCustomDataKey, Mask);
         if (r1 && r2 && r3)
         {
-            
             RequestClose?.Invoke();
         }
     }

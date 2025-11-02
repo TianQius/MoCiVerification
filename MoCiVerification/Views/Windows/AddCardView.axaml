@@ -44,7 +44,7 @@
                                        FontWeight="DemiBold"
                                        Foreground="{DynamicResource SukiLowText}"
                                        Text="卡密类型" />
-                            <ComboBox  Margin="-5,0,0,0" SelectedIndex="0" SelectedValue="{Binding CardTypeValue}">
+                            <ComboBox  Margin="-5,0,0,0" SelectedIndex="0" SelectedItem="{Binding CardTypeValue}">
                                 <ComboBoxItem Content="时卡"/>
                                 <ComboBoxItem Content="天卡"/>
                                 <ComboBoxItem Content="周卡"/>

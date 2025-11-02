@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +24,7 @@ public partial class CardViewModel:PageBase
 {
     [ObservableProperty] private DataGridCollectionView _dataGridContent;
     [ObservableProperty] private CardDataGridContentViewModel selectedItem;
+    [ObservableProperty] private ObservableCollection<CardDataGridContentViewModel> _selectedItems = new();
     [ObservableProperty] private bool _isLoading = false;
     private readonly IAdminService _adminService;
     private readonly ClientSettings _settings;
@@ -91,15 +94,46 @@ public partial class CardViewModel:PageBase
     [RelayCommand]
     public async Task DeleteCard()
     {
-        var r = await _adminService.DeleteCard(_settings.CurrentProjectName, SelectedItem.Card);
-        if (r)
+        if (SelectedItems.Count == 1)
         {
+            var r = await _adminService.DeleteCard(_settings.CurrentProjectName, SelectedItem.Card);
+            if (r)
+            {
+                _toastManager.CreateSimpleInfoToast()
+                    .WithTitle("卡密发生变化")
+                    .WithContent("删除卡密成功！请耐心等待并刷新（有缓存）")
+                    .OfType(NotificationType.Success)
+                    .Queue();
+            }
+            else
+            {
+                _toastManager.CreateSimpleInfoToast()
+                    .WithTitle("删除卡密失败")
+                    .WithContent(_settings.GlobalMessage)
+                    .OfType(NotificationType.Error)
+                    .Queue();
+            }
+        }
+        else
+        {
+            foreach (var i in SelectedItems)
+            {
+                if(!await _adminService.DeleteCard(_settings.CurrentProjectName, i.Card))
+                {
+                    _toastManager.CreateSimpleInfoToast()
+                        .WithTitle("删除卡密失败")
+                        .WithContent(_settings.GlobalMessage)
+                        .OfType(NotificationType.Error)
+                        .Queue();
+                }
+            }
             _toastManager.CreateSimpleInfoToast()
                 .WithTitle("卡密发生变化")
-                .WithContent("删除卡密成功！请耐心等待并刷新（有缓存）")
+                .WithContent("批量删除卡密已完成！请耐心等待并刷新（有缓存）")
                 .OfType(NotificationType.Success)
                 .Queue();
         }
+        
 
     }
     [RelayCommand]

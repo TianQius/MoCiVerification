@@ -17,7 +17,7 @@
             <suki:GroupBox.Header>
                 <DockPanel>
                     <TextBlock Classes="Flat" Text="黑名单" DockPanel.Dock="Left" FontSize="18" VerticalAlignment="Center"/>
-                    <Button Classes="Flat" Width="100" Content="创建黑名" HorizontalAlignment="Right" DockPanel.Dock="Right" />
+                    <Button Classes="Flat" Width="100" Content="创建黑名" HorizontalAlignment="Right" DockPanel.Dock="Right" Command="{Binding CreateBlacker}"/>
                 </DockPanel>
             </suki:GroupBox.Header> 
                 <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"

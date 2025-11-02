@@ -11,7 +11,6 @@ using MoCiVerification.Features;
 using MoCiVerification.Message;
 using MoCiVerification.Models;
 using MoCiVerification.Views.Windows;
-using SukiUI.Dialogs;
 using SukiUI.Toasts;
 
 namespace MoCiVerification.ViewModels;
@@ -94,6 +93,14 @@ public partial class UserViewModel:PageBase
                 .OfType(NotificationType.Success)
                 .Queue();
         }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("停用用户失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
     }
     [RelayCommand]
     public async Task OffUser()
@@ -105,6 +112,14 @@ public partial class UserViewModel:PageBase
                 .WithTitle("用户发生变化")
                 .WithContent("下线用户成功！请耐心等待并刷新（有缓存）")
                 .OfType(NotificationType.Success)
+                .Queue();
+        }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("下线用户失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
                 .Queue();
         }
     }
@@ -120,6 +135,14 @@ public partial class UserViewModel:PageBase
                 .OfType(NotificationType.Success)
                 .Queue();
         }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("删除用户失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
     }
     [RelayCommand]
     public async Task RecoverUser()
@@ -131,6 +154,14 @@ public partial class UserViewModel:PageBase
                 .WithTitle("用户发生变化")
                 .WithContent("恢复用户成功！请耐心等待并刷新（有缓存）")
                 .OfType(NotificationType.Success)
+                .Queue();
+        }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("恢复用户失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
                 .Queue();
         }
     }
@@ -146,6 +177,14 @@ public partial class UserViewModel:PageBase
                 .OfType(NotificationType.Success)
                 .Queue();
         }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("解绑用户失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
     }
     [RelayCommand]
     public async Task ClearUserBindTimes()
@@ -157,6 +196,14 @@ public partial class UserViewModel:PageBase
                 .WithTitle("用户发生变化")
                 .WithContent("清空绑定次数成功！请耐心等待并刷新（有缓存）")
                 .OfType(NotificationType.Success)
+                .Queue();
+        }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("清空绑定次数失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
                 .Queue();
         }
     }
@@ -172,6 +219,14 @@ public partial class UserViewModel:PageBase
                 .OfType(NotificationType.Success)
                 .Queue();
         }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("拉黑用户失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
     }
     [RelayCommand]
     public async Task MachineCodeToBlacker()
@@ -183,6 +238,14 @@ public partial class UserViewModel:PageBase
                 .WithTitle("用户发生变化")
                 .WithContent("拉黑机器码成功！请耐心等待并刷新（有缓存）")
                 .OfType(NotificationType.Success)
+                .Queue();
+        }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("拉黑机器码失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
                 .Queue();
         }
     }

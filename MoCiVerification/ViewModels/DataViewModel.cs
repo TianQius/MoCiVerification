@@ -68,6 +68,14 @@ public partial class DataViewModel:PageBase
                .OfType(NotificationType.Success)
                .Queue();
        }
+       else
+       {
+           _toastManager.CreateSimpleInfoToast()
+               .WithTitle("删除数据失败")
+               .WithContent(_settings.GlobalMessage)
+               .OfType(NotificationType.Error)
+               .Queue();
+       }
     }
     [RelayCommand]
     public async Task CreateCustomData()

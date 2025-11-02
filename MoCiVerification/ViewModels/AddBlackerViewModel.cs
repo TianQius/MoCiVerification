@@ -40,6 +40,14 @@ public partial class AddBlackerViewModel:ObservableObject
                 .Queue();
             RequestClose?.Invoke();
         }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("创建黑名失败")
+                .WithContent(_clientSettings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
 
 
 

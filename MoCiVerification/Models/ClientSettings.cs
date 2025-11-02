@@ -27,7 +27,7 @@ public class ClientSettings
     
     public string? ClientLicense { get; set; }
     public string AppVersion { get; set; } = "4.0.0beta";
-    public string? ErrorMessage { get; set; }
+    public string? GlobalMessage { get; set; }
     
     public void LoadFromJson()
     {

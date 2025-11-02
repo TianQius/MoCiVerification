@@ -44,7 +44,7 @@
                                        FontWeight="DemiBold"
                                        Foreground="{DynamicResource SukiLowText}"
                                        Text="获取方法" />
-                            <ComboBox  Margin="-5,0,0,0" SelectedIndex="0" SelectedValue="{Binding GetWay}">
+                            <ComboBox  Margin="-5,0,0,0" SelectedIndex="0" SelectedItem="{Binding GetWay}">
                                 <ComboBoxItem Content="直接获取"/>
                                 <ComboBoxItem Content="登录获取"/>
                             </ComboBox>

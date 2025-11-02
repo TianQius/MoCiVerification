@@ -76,6 +76,14 @@ public partial class BlackerViewModel:PageBase
                 .OfType(NotificationType.Success)
                 .Queue();
         }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("删除黑名失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
     }
 
 

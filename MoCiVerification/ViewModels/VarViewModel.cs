@@ -65,6 +65,14 @@ public partial class VarViewModel:PageBase
                 .OfType(NotificationType.Success)
                 .Queue();
         }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+            .WithTitle("删除云变量失败")
+            .WithContent(_settings.GlobalMessage)
+            .OfType(NotificationType.Error)
+            .Queue();
+        }
     }
 
 

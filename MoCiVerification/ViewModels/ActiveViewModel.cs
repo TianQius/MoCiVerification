@@ -43,6 +43,14 @@ public partial class ActiveViewModel : ObservableObject
                 .Queue();
             RequestClose?.Invoke();
         }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("激活失败")
+                .WithContent(_clientSettings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
         IsActiving = false;
 
     }

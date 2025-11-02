@@ -36,7 +36,7 @@
                                FontWeight="DemiBold" 
                                Foreground="{DynamicResource SukiLowText}"
                                Text="状态" />
-                    <ComboBox  Margin="-5,0,0,0" SelectedIndex="0" SelectedValue="{Binding State}">
+                    <ComboBox  Margin="-5,0,0,0" SelectedIndex="0" SelectedItem="{Binding State}">
                         <ComboBoxItem Content="正常"/>
                         <ComboBoxItem Content="停用"/>
                         <ComboBoxItem Content="测试"/>
@@ -55,7 +55,7 @@
                                Text="版本数据" />
                     <TextBox suki:TextBoxExtensions.Prefix="{icon:MaterialIconExt Kind=Database}"
                              Classes="clearButton" Height="100" TextWrapping="Wrap"
-                             Text="{Binding VersionAnnounce}"
+                             Text="{Binding VersionData}"
                              Watermark="Your data"/>
                 </StackPanel>
             </suki:BusyArea>

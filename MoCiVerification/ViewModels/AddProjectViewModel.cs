@@ -20,11 +20,14 @@ public partial class AddProjectViewModel:ObservableObject
     private string _projectAnnounce;
     private readonly IAdminService _adminService;
     private readonly ISukiToastManager _toastManager;
+    
+    private readonly ClientSettings _clientSettings;
 
-    public AddProjectViewModel(ISukiToastManager toastManager,IAdminService adminService)
+    public AddProjectViewModel(ISukiToastManager toastManager,IAdminService adminService, ClientSettings clientSettings)
     {
         _adminService = adminService;
         _toastManager = toastManager;
+        _clientSettings = clientSettings;
     }
 
     [RelayCommand]
@@ -52,6 +55,14 @@ public partial class AddProjectViewModel:ObservableObject
                     .OfType(NotificationType.Success)
                     .Queue();
                 RequestClose?.Invoke();
+            }
+            else
+            {
+                _toastManager.CreateSimpleInfoToast()
+                    .WithTitle("创建项目失败")
+                    .WithContent(_clientSettings.GlobalMessage)
+                    .OfType(NotificationType.Error)
+                    .Queue();
             }
         }
         IsAddingProject = false;

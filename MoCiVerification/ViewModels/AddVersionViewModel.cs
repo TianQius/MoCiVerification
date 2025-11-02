@@ -14,7 +14,7 @@ public partial class AddVersionViewModel:ObservableObject
     public event Action? RequestClose;
     [ObservableProperty] private bool _isAddingVersion = false;
     [ObservableProperty] private string _version;
-    [ObservableProperty] private ComboBoxItem _state;
+    [ObservableProperty] private ComboBoxItem? _state;
     [ObservableProperty] private string _versionAnnounce;
     [ObservableProperty] private string _versionData;
     private readonly IAdminService _adminService;
@@ -31,11 +31,13 @@ public partial class AddVersionViewModel:ObservableObject
     [RelayCommand]
     public async Task CreateVersion()
     {
+        
         if (String.IsNullOrEmpty(VersionAnnounce)) VersionAnnounce = "无";
         else if (String.IsNullOrEmpty(VersionData)) VersionData = "无";
 
         if (String.IsNullOrEmpty(Version))
         {
+            Console.WriteLine("version");
             _toastManager.CreateSimpleInfoToast()
                 .WithTitle("创建版本失败")
                 .WithContent("版本号不可为空！！！")
@@ -45,15 +47,23 @@ public partial class AddVersionViewModel:ObservableObject
         else
         {
             var r = await _adminService.CreateVersion(_clientSettings.CurrentProjectName, Version, VersionAnnounce,
-                VersionData, State.Content.ToString());
+                VersionData, (string)State?.Content);
             if (r)
             {
                 _toastManager.CreateSimpleInfoToast()
-                    .WithTitle("创建版本失败")
+                    .WithTitle("创建版本成功")
                     .WithContent("创建版本成功！请耐心等待并刷新（有缓存）")
                     .OfType(NotificationType.Success)
                     .Queue();
                 RequestClose?.Invoke();
+            }
+            else
+            {
+                _toastManager.CreateSimpleInfoToast()
+                    .WithTitle("创建版本失败")
+                    .WithContent(_clientSettings.GlobalMessage)
+                    .OfType(NotificationType.Error)
+                    .Queue();
             }
         }
 

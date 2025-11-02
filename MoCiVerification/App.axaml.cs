@@ -7,6 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
+using MoCiVerification.Behaviors;
 using MoCiVerification.ViewModels;
 using MoCiVerification.Views;
 using SukiUI.Controls;
@@ -114,6 +115,7 @@ public partial class App : Application
         services.AddSingleton<PageNavigationService>();
         services.AddSingleton<LoginNavigationService>();
         services.AddSingleton<IAdminService, AdminService>();
+        services.AddSingleton<DataGridBehaviors>();
         services.AddSingleton<ClientSettings>(sp =>
         {
             var settings = new ClientSettings();

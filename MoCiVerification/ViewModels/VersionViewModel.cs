@@ -71,6 +71,15 @@ public partial class VersionViewModel:PageBase
                 .OfType(NotificationType.Success)
                 .Queue();
         }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("停用版本失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
+        
     }
     [RelayCommand]
     public async Task RecoverVersion()
@@ -82,6 +91,14 @@ public partial class VersionViewModel:PageBase
                 .WithTitle("版本发生变化")
                 .WithContent("恢复版本成功！请耐心等待并刷新（有缓存）")
                 .OfType(NotificationType.Success)
+                .Queue();
+        }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("恢复版本失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
                 .Queue();
         }
 
@@ -96,6 +113,14 @@ public partial class VersionViewModel:PageBase
                 .WithTitle("版本发生变化")
                 .WithContent("删除版本成功！请耐心等待并刷新（有缓存）")
                 .OfType(NotificationType.Success)
+                .Queue();
+        }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("删除版本失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
                 .Queue();
         }
 
