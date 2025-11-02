@@ -37,7 +37,7 @@
                             <MenuItem Header="停用用户" Command="{Binding StopUser}"/>
                             <MenuItem Header="下线用户" Command="{Binding OffUser}"/>
                             <MenuItem Header="恢复用户" Command="{Binding RecoverUser}"/>
-                            <MenuItem Header="修改用户属性(暂不可用)"/>
+                            
                             <MenuItem Header="-"/>
                             <MenuItem Header="解绑机器码" Command="{Binding UnBindUser}"/>
                             <MenuItem Header="清空解绑次数" Command="{Binding ClearUserBindTimes}"/>

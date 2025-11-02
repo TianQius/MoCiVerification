@@ -67,7 +67,6 @@ public partial class AddCardViewModel:ObservableObject
                 .OfType(NotificationType.Error)
                 .Queue();
         }
-
         IsAddingCard = false;
 
     }
