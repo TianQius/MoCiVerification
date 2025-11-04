@@ -1,0 +1,75 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+             xmlns:icon="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:LoginViewModel"
+             xmlns:vm="using:MoCiProxyClient.ViewModels"
+             x:Class="MoCiProxyClient.Views.LoginView">
+    <Grid Margin="15">
+                <suki:GlassCard Width="300" Margin="0,100,0,150"
+                                animations:SquishyOverExtensions.Enable="True"
+                                animations:SquishyOverExtensions.Intensity="0.05"
+                                animations:SquishyOverExtensions.SquishDepth="0.05">
+                    <suki:BusyArea BusyText="正在登录..."
+                                   IsBusy="{Binding IsLoggingIn}">
+                        <StackPanel>
+                            <PathIcon Width="35"
+                                               Height="30"
+                                               Margin="10"
+                                               HorizontalAlignment="Center"
+                                               Foreground="{DynamicResource SukiPrimaryColor}"
+                                               Data="{StaticResource moci}" />
+                            <TextBlock Margin="0,5,0,27"
+                                       HorizontalAlignment="Center"
+                                       FontSize="18"
+                                       FontWeight="DemiBold"
+                                       Text="登录到代理账户" />
+                            <TextBlock Margin="6,0,0,3"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Token" />
+                            <TextBox suki:TextBoxExtensions.Prefix="{icon:MaterialIconExt Kind=KeyAlert}"
+                                     Classes="clearButton"
+                                     Text="{Binding Token}"
+                                     Watermark="Your Token" />
+                            <TextBlock Margin="6,10,0,3"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Username" />
+                            <TextBox suki:TextBoxExtensions.Prefix="{icon:MaterialIconExt Kind=User}"
+                                     Classes="clearButton"
+                                     Text="{Binding Username}"
+                                     Watermark="Your Username" />
+                            <TextBlock Margin="6,10,0,3"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Password" />
+                            <TextBox Margin="0,0,0,25"
+                                     suki:TextBoxExtensions.AddDeleteButton="True"
+                                     suki:TextBoxExtensions.Prefix="{icon:MaterialIconExt Kind=Password}"
+                                     Classes="revealPasswordButton"
+                                     PasswordChar="*"
+                                     Text="{Binding Password}"
+                                     Watermark="Your Password" />
+                            
+                        </StackPanel>
+                    </suki:BusyArea>
+                </suki:GlassCard>
+                <Button Width="160"
+                        Height="40"
+                        Margin="0,0,0,135"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        suki:ButtonExtensions.ShowProgress="{Binding IsLoggingIn}"
+                        Classes="Flat Rounded"
+                        Command="{Binding LoginAsync}"
+                        FontWeight="DemiBold">
+                    Sign In
+                </Button>
+            </Grid>
+</UserControl>
