@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Collections;
@@ -17,6 +18,7 @@ public partial class DataViewModel:PageBase
 {
     [ObservableProperty] private DataGridCollectionView _dataGridContent;
     [ObservableProperty] private CustomDataGridContentViewModel _selectedItem;
+    [ObservableProperty] private ObservableCollection<CustomDataGridContentViewModel> _selectedItems = new();
     [ObservableProperty] private bool _isLoading = false;
     private readonly IAdminService _adminService;
     private readonly ClientSettings _settings;
@@ -59,23 +61,46 @@ public partial class DataViewModel:PageBase
     [RelayCommand]
     public async Task DeleteCustomData()
     {
-       var r= await _adminService.DeleteCustomData(_settings.CurrentProjectName, SelectedItem.Key);
-       if (r)
-       {
-           _toastManager.CreateSimpleInfoToast()
-               .WithTitle("数据发生变化")
-               .WithContent("删除数据成功！请耐心等待并刷新（有缓存）")
-               .OfType(NotificationType.Success)
-               .Queue();
-       }
-       else
-       {
-           _toastManager.CreateSimpleInfoToast()
-               .WithTitle("删除数据失败")
-               .WithContent(_settings.GlobalMessage)
-               .OfType(NotificationType.Error)
-               .Queue();
-       }
+        if (SelectedItems.Count == 1)
+        {
+            var r= await _adminService.DeleteCustomData(_settings.CurrentProjectName, SelectedItem.Key);
+            if (r)
+            {
+                _toastManager.CreateSimpleInfoToast()
+                    .WithTitle("数据发生变化")
+                    .WithContent("删除数据成功！请耐心等待并刷新（有缓存）")
+                    .OfType(NotificationType.Success)
+                    .Queue();
+            }
+            else
+            {
+                _toastManager.CreateSimpleInfoToast()
+                    .WithTitle("删除数据失败")
+                    .WithContent(_settings.GlobalMessage)
+                    .OfType(NotificationType.Error)
+                    .Queue();
+            }
+        }
+        else
+        {
+            foreach (var i in SelectedItems)
+            {
+                if (!await _adminService.DeleteCustomData(_settings.CurrentProjectName, i.Key))
+                {
+                    _toastManager.CreateSimpleInfoToast()
+                        .WithTitle("删除数据失败")
+                        .WithContent(_settings.GlobalMessage)
+                        .OfType(NotificationType.Error)
+                        .Queue();
+                }
+            }
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("数据发生变化")
+                .WithContent("批量删除数据成已完成！请耐心等待并刷新（有缓存）")
+                .OfType(NotificationType.Success)
+                .Queue();
+        }
+       
     }
     [RelayCommand]
     public async Task CreateCustomData()

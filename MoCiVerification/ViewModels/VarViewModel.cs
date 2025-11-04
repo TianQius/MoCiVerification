@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Collections;
@@ -18,6 +19,7 @@ public partial class VarViewModel:PageBase
 {
     [ObservableProperty] private DataGridCollectionView _dataGridContent;
     [ObservableProperty] private VarDataGridContentViewModel selectedItem;
+    [ObservableProperty] private ObservableCollection<VarDataGridContentViewModel> _selectedItems = new();
     [ObservableProperty] private bool _isLoading = false;
     private readonly IAdminService _adminService;
     private readonly ClientSettings _settings;
@@ -56,23 +58,46 @@ public partial class VarViewModel:PageBase
     [RelayCommand]
     public async Task DeleteVar()
     {
-        var r = await _adminService.DeleteVar(_settings.CurrentProjectName, SelectedItem.Name);
-        if (r)
+        if (SelectedItems.Count == 1)
         {
-            _toastManager.CreateSimpleInfoToast()
-                .WithTitle("云变量发生变化")
-                .WithContent("删除云变量成功！请耐心等待并刷新（有缓存）")
-                .OfType(NotificationType.Success)
-                .Queue();
+            var r = await _adminService.DeleteVar(_settings.CurrentProjectName, SelectedItem.Name);
+            if (r)
+            {
+                _toastManager.CreateSimpleInfoToast()
+                    .WithTitle("云变量发生变化")
+                    .WithContent("删除云变量成功！请耐心等待并刷新（有缓存）")
+                    .OfType(NotificationType.Success)
+                    .Queue();
+            }
+            else
+            {
+                _toastManager.CreateSimpleInfoToast()
+                    .WithTitle("删除云变量失败")
+                    .WithContent(_settings.GlobalMessage)
+                    .OfType(NotificationType.Error)
+                    .Queue();
+            }
         }
         else
         {
+            foreach (var i in SelectedItems)
+            {
+                if (!await _adminService.DeleteVar(_settings.CurrentProjectName, i.Name))
+                {
+                    _toastManager.CreateSimpleInfoToast()
+                        .WithTitle("删除云变量失败")
+                        .WithContent(_settings.GlobalMessage)
+                        .OfType(NotificationType.Error)
+                        .Queue();
+                }
+            }
             _toastManager.CreateSimpleInfoToast()
-            .WithTitle("删除云变量失败")
-            .WithContent(_settings.GlobalMessage)
-            .OfType(NotificationType.Error)
-            .Queue();
+                .WithTitle("云变量发生变化")
+                .WithContent("批量删除云变量完成！请耐心等待并刷新（有缓存）")
+                .OfType(NotificationType.Success)
+                .Queue();
         }
+
     }
 
 

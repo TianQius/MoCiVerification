@@ -19,7 +19,19 @@ public class AdminService:IAdminService
     {
         try
         {
-            return await _moCiService.ExecuteAsync(header, type, parameters);
+            return await _moCiService.ExecuteAsync(header, type, parameters,false);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[MoCi Error] {ex.Message}");
+            return "请求失败";
+        }
+    }
+    private async Task<string> Execute(string header, string type, string?[] parameters,bool noCache)
+    {
+        try
+        {
+            return await _moCiService.ExecuteAsync(header, type, parameters, noCache);
         }
         catch (Exception ex)
         {

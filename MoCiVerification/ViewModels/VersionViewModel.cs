@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ public partial class VersionViewModel:PageBase
 {
     [ObservableProperty] private DataGridCollectionView _dataGridContent;
     [ObservableProperty] private VersionDataGridContentViewModel _selectedItem;
+    [ObservableProperty] private ObservableCollection<VersionDataGridContentViewModel> _selectedItems = new();
     [ObservableProperty] private bool _isLoading = false;
     private readonly IAdminService _adminService;
     private readonly ClientSettings _settings;

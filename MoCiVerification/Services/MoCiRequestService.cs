@@ -13,11 +13,10 @@ public class MoCiRequestService
     {
         _client = client ?? throw new ArgumentNullException(nameof(client));
     }
-
-    public async Task<string> ExecuteAsync(string header, string type, string[] parameters)
+    public async Task<string> ExecuteAsync(string header, string type, string[] parameters,bool NoCache)
     {
         
-        var data = BuildRequestData(header, type, parameters);
+        var data = BuildRequestData(header, type, parameters,NoCache);
         var requestUrl = GetRequestUrl(data); 
 
         Console.WriteLine($"[MoCi] 请求: {requestUrl}");
@@ -30,13 +29,13 @@ public class MoCiRequestService
         return result.Length > 1 ? result.Substring(1) : result;
     }
 
-    private string BuildRequestData(string header, string type, string[] parameters)
+    private string BuildRequestData(string header, string type, string[] parameters,bool NoCache)
     {
         var sb = new StringBuilder();
         sb.Append(header).Append("|||").Append(type);
         foreach (var par in parameters)
             sb.Append("|||").Append(par);
-        //sb.Append("|||").Append(new Random().Next(1,100000));
+        if (NoCache) sb.Append("&v=").Append(new Random().Next(1,1000));
         return sb.ToString();
     }
 

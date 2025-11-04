@@ -20,7 +20,7 @@ public partial class UserViewModel:PageBase
 {
     [ObservableProperty] private DataGridCollectionView _dataGridContent;
     [ObservableProperty] private UserDataGridContentViewModel selectedItem;
-    [ObservableProperty] private ObservableCollection<CardDataGridContentViewModel> _selectedItems = new();
+    [ObservableProperty] private ObservableCollection<UserDataGridContentViewModel> _selectedItems = new();
     [ObservableProperty] private bool _isLoading = false;
     private readonly IAdminService _adminService;
     private readonly ClientSettings _settings;

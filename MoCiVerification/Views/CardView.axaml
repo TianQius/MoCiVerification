@@ -22,7 +22,7 @@
                 </DockPanel>
             </suki:GroupBox.Header> 
                 <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"
-                           b:DataGridBehaviors.SelectedItems="{Binding SelectedItems}"
+                          b:DataGridBehaviors.SelectedItems="{Binding SelectedItems}"
                           MaxHeight="800"
                           CanUserResizeColumns="True"
                           ItemsSource="{Binding DataGridContent}">

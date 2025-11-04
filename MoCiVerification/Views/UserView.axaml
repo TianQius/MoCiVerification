@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:b="clr-namespace:MoCiVerification.Behaviors;assembly=MoCiVerification" 
              xmlns:vm="using:MoCiVerification.ViewModels"
              xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
@@ -20,6 +21,7 @@
                 </DockPanel>
             </suki:GroupBox.Header> 
                 <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"
+                          b:DataGridBehaviors.SelectedItems="{Binding SelectedItems}"
                           MaxHeight="800"
                           CanUserResizeColumns="True"
                           ItemsSource="{Binding DataGridContent}">
