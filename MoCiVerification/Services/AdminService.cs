@@ -382,11 +382,61 @@ public class AdminService:IAdminService
         return result == "修改解绑次数上限成功";
     }
     
+    public async Task<string[]?> GetAgentListAsync(string projectName)
+    {
+        var result = await Execute("作者", "获取代理列表", new[] { _clientSettings.UserName, projectName, _clientSettings.ClientLicense });
+        _clientSettings.GlobalMessage = result;
+        return ProcessListResult(result);
+    }
+    
+    public async Task<bool> OffAgent(string projectName,string username)
+    {
+        var result = await Execute("作者", "下线代理",
+            new[] { _clientSettings.UserName, projectName, username, _clientSettings.ClientLicense });
+        _clientSettings.GlobalMessage = result;
+        return (result.IndexOf("下线代理成功") != -1);
+    }
+    public async Task<bool> StopAgent(string projectName,string username)
+    {
+        var result = await Execute("作者", "停用代理",
+            new[] { _clientSettings.UserName, projectName, username, _clientSettings.ClientLicense });
+        _clientSettings.GlobalMessage = result;
+        return (result.IndexOf("停用代理成功") != -1);
+    }
+    public async Task<bool> RecoverAgent(string projectName,string username)
+    {
+        var result = await Execute("作者", "恢复代理",
+            new[] { _clientSettings.UserName, projectName, username, _clientSettings.ClientLicense });
+        _clientSettings.GlobalMessage = result;
+        return (result.IndexOf("恢复代理成功") != -1);
+    }
+    public async Task<bool> DeleteAgent(string projectName,string username,string password,string money)
+    {
+        var result = await Execute("作者", "新增代理",
+            new[] { _clientSettings.UserName, projectName, username,password,money, _clientSettings.ClientLicense });
+        _clientSettings.GlobalMessage = result;
+        return (result.IndexOf("新增代理成功") != -1);
+    }
+    public async Task<bool> AddAgent(string projectName,string username)
+    {
+        var result = await Execute("作者", "删除代理",
+            new[] { _clientSettings.UserName, projectName, username, _clientSettings.ClientLicense });
+        _clientSettings.GlobalMessage = result;
+        return (result.IndexOf("删除代理成功") != -1);
+    }
+    public async Task<bool> ChangeAgentMoney(string projectName,string agent,string money)
+    {
+        var result = await Execute("作者", "修改代理余额",
+            new[] { _clientSettings.UserName, projectName, agent,money, _clientSettings.ClientLicense });
+        _clientSettings.GlobalMessage = result;
+        return (result.IndexOf("修改代理余额成功") != -1);
+    }
+    
 
     private string[]? ProcessListResult(string result)
     {
         if (result.Contains("无项目") || result.Contains("无版本") || result.Contains("无自定义数据") ||
-            result.Contains("无用户") || result.Contains("无黑名") || result.Contains("无卡密"))
+            result.Contains("无用户") || result.Contains("无黑名") || result.Contains("无卡密") || result.Contains("无卡密"))
         {
             _clientSettings.GlobalMessage = result;
             return null;

@@ -61,4 +61,11 @@ public interface IAdminService
     Task<string[]?> GetCardListAsync(string projectName);
     Task<bool> DeleteCard(string projectName, string card);
     Task<bool> CreateCard(string projectName, int count, string type, string prefix, string mask);
+    Task<string[]?> GetAgentListAsync(string projectName);
+    Task<bool> OffAgent(string projectName, string username);
+    Task<bool> StopAgent(string projectName, string username);
+    Task<bool> RecoverAgent(string projectName, string username);
+    Task<bool> DeleteAgent(string projectName, string username, string password, string money);
+    Task<bool> AddAgent(string projectName, string username);
+    Task<bool> ChangeAgentMoney(string projectName, string agent, string money);
 }

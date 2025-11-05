@@ -103,6 +103,7 @@ public partial class App : Application
             .AddView<DataView, DataViewModel>(services)
             .AddView<BlackerView, BlackerViewModel>(services)
             .AddView<VarView, VarViewModel>(services)
+            .AddView<AgentView, AgentViewModel>(services)
             .AddView<SettingView,SettingViewModel>(services)
             .AddView<SplashView, SplashViewModel>(services);
         

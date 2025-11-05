@@ -1,0 +1,52 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:MoCiVerification.ViewModels"
+             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:AgentViewModel"
+             x:Class="MoCiVerification.Views.AgentView">
+    <suki:GlassCard Margin="50" 
+                    animations:SquishyOverExtensions.Enable="True"
+                    animations:SquishyOverExtensions.Intensity="0.015"
+                    animations:SquishyOverExtensions.SquishDepth="0.015">
+        <suki:BusyArea BusyText="正在加载..." IsBusy="{Binding IsLoading}">
+        <suki:GroupBox>
+            <suki:GroupBox.Header>
+                <DockPanel>
+                    <TextBlock Classes="Flat" Text="代理管理" DockPanel.Dock="Left" FontSize="18" VerticalAlignment="Center"/>
+                    <Button Classes="Flat" Width="100" Content="新增代理" HorizontalAlignment="Right" DockPanel.Dock="Right" Command="{Binding }"/>
+                </DockPanel>
+            </suki:GroupBox.Header> 
+                <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"
+                          MaxHeight="800"
+                          CanUserResizeColumns="True"
+                          ItemsSource="{Binding DataGridContent}">
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridRowGroupHeader">
+                            <Setter Property="IsItemCountVisible" Value="True" />
+                        </Style>
+                    </DataGrid.Styles>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="刷新" />
+                            <MenuItem Header="删除代理" />
+                            <MenuItem Header="停用代理" />
+                            <MenuItem Header="恢复代理" />
+                            <MenuItem Header="强制下线" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Username, DataType=vm:AgentDataGridContentViewModel}" Header="代理账号"  MaxWidth="150" />
+                        <DataGridTextColumn Binding="{Binding Password, DataType=vm:AgentDataGridContentViewModel}" Header="代理密码" MaxWidth="150"/>
+                        <DataGridTextColumn Binding="{Binding Balance, DataType=vm:AgentDataGridContentViewModel}" Header="余额"  MaxWidth="150"/>
+                        <DataGridTextColumn Binding="{Binding State, DataType=vm:AgentDataGridContentViewModel}" Header="在线状态" MaxWidth="150"/>
+                        <DataGridTextColumn Binding="{Binding Isuse, DataType=vm:AgentDataGridContentViewModel}" Header="是否停用" MaxWidth="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+        </suki:GroupBox>
+            </suki:BusyArea>
+    </suki:GlassCard>
+</UserControl>
