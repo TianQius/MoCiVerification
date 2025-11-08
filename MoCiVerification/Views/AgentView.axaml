@@ -17,7 +17,7 @@
             <suki:GroupBox.Header>
                 <DockPanel>
                     <TextBlock Classes="Flat" Text="代理管理" DockPanel.Dock="Left" FontSize="18" VerticalAlignment="Center"/>
-                    <Button Classes="Flat" Width="100" Content="新增代理" HorizontalAlignment="Right" DockPanel.Dock="Right" Command="{Binding }"/>
+                    <Button Classes="Flat" Width="100" Content="新增代理" HorizontalAlignment="Right" DockPanel.Dock="Right" Command="{Binding AddAgentCommand}"/>
                 </DockPanel>
             </suki:GroupBox.Header> 
                 <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"
@@ -31,11 +31,11 @@
                     </DataGrid.Styles>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="刷新" />
-                            <MenuItem Header="删除代理" />
-                            <MenuItem Header="停用代理" />
-                            <MenuItem Header="恢复代理" />
-                            <MenuItem Header="强制下线" />
+                            <MenuItem Header="刷新" Command="{Binding Reflash}"/>
+                            <MenuItem Header="删除代理"  Command="{Binding DeleteAgent}"/>
+                            <MenuItem Header="停用代理"  Command="{Binding StopAgent}" />
+                            <MenuItem Header="恢复代理" Command="{Binding RecoverAgent}" />
+                            <MenuItem Header="强制下线" Command="{Binding OffAgent}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>

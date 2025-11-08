@@ -65,7 +65,7 @@ public interface IAdminService
     Task<bool> OffAgent(string projectName, string username);
     Task<bool> StopAgent(string projectName, string username);
     Task<bool> RecoverAgent(string projectName, string username);
-    Task<bool> DeleteAgent(string projectName, string username, string password, string money);
-    Task<bool> AddAgent(string projectName, string username);
+    Task<bool> DeleteAgent(string projectName, string username);
+    Task<bool> AddAgent(string projectName, string username, string password, string money);
     Task<bool> ChangeAgentMoney(string projectName, string agent, string money);
 }

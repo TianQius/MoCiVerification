@@ -2,11 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Collections;
+using Avalonia.Controls.Notifications;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using MoCiVerification.Features;
 using MoCiVerification.Models;
+using MoCiVerification.Views.Windows;
 using SukiUI.Toasts;
 
 namespace MoCiVerification.ViewModels;
@@ -14,7 +16,7 @@ namespace MoCiVerification.ViewModels;
 public partial class AgentViewModel:PageBase
 {
     [ObservableProperty] private DataGridCollectionView? _dataGridContent;
-    [ObservableProperty] private BlackerDataGridContentViewModel selectedItem;
+    [ObservableProperty] private AgentDataGridContentViewModel selectedItem;
     [ObservableProperty] private bool _isLoading = false;
     private readonly IAdminService _adminService;
     private readonly ClientSettings _settings;
@@ -54,6 +56,100 @@ public partial class AgentViewModel:PageBase
     {
         await LoadAgentsAsync();
     }
+    [RelayCommand]
+    public async Task AddAgent()
+    {
+        await _showWindowManager.ShowDialogAsync<AddAgentView, AddAgentViewModel>();
+
+    }
+    [RelayCommand]
+    public async Task DeleteAgent()
+    {
+        var r = await _adminService.DeleteAgent(_settings.CurrentProjectName,SelectedItem.Username);
+        if (r)
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("代理列表发生变化")
+                .WithContent("删除代理成功！请耐心等待并刷新（有缓存）")
+                .OfType(NotificationType.Success)
+                .Queue();
+        }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("删除代理失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
+    }
+    [RelayCommand]
+    public async Task StopAgent()
+    {
+        var r = await _adminService.StopAgent(_settings.CurrentProjectName,SelectedItem.Username);
+        if (r)
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("代理列表发生变化")
+                .WithContent("停用代理成功！请耐心等待并刷新（有缓存）")
+                .OfType(NotificationType.Success)
+                .Queue();
+        }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("停用代理失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
+    }
+    [RelayCommand]
+    public async Task RecoverAgent()
+    {
+        var r = await _adminService.RecoverAgent(_settings.CurrentProjectName,SelectedItem.Username);
+        if (r)
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("代理列表发生变化")
+                .WithContent("恢复代理成功！请耐心等待并刷新（有缓存）")
+                .OfType(NotificationType.Success)
+                .Queue();
+        }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("恢复代理失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
+    }
+    [RelayCommand]
+    public async Task OffAgent()
+    {
+        var r = await _adminService.OffAgent(_settings.CurrentProjectName,SelectedItem.Username);
+        if (r)
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("代理列表发生变化")
+                .WithContent("下线代理成功！请耐心等待并刷新（有缓存）")
+                .OfType(NotificationType.Success)
+                .Queue();
+        }
+        else
+        {
+            _toastManager.CreateSimpleInfoToast()
+                .WithTitle("下线代理失败")
+                .WithContent(_settings.GlobalMessage)
+                .OfType(NotificationType.Error)
+                .Queue();
+        }
+    }
+    
+    
+    
+    
     public override async Task OnPageLoadedAsync()
     {
         if (DataGridContent != null)

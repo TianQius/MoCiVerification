@@ -87,6 +87,7 @@ public partial class App : Application
             .AddView<AddCustomDataView,AddCustomDataViewModel>(services)
             .AddView<AddVersionView,AddVersionViewModel>(services)
             .AddView<AddBlackerView, AddBlackerViewModel>(services)
+            .AddView<AddAgentView, AddAgentViewModel>(services)
             .AddView<ActiveView, ActiveViewModel>(services)
             .AddView<ChangeProjectView, ChangeProjectViewModel>(services)
             .AddView<ChangeVersionView,ChangeVersionViewModel>(services)

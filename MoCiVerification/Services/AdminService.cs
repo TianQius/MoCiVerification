@@ -410,14 +410,14 @@ public class AdminService:IAdminService
         _clientSettings.GlobalMessage = result;
         return (result.IndexOf("恢复代理成功") != -1);
     }
-    public async Task<bool> DeleteAgent(string projectName,string username,string password,string money)
+    public async Task<bool> AddAgent(string projectName,string username,string password,string money)
     {
         var result = await Execute("作者", "新增代理",
             new[] { _clientSettings.UserName, projectName, username,password,money, _clientSettings.ClientLicense });
         _clientSettings.GlobalMessage = result;
         return (result.IndexOf("新增代理成功") != -1);
     }
-    public async Task<bool> AddAgent(string projectName,string username)
+    public async Task<bool> DeleteAgent(string projectName,string username)
     {
         var result = await Execute("作者", "删除代理",
             new[] { _clientSettings.UserName, projectName, username, _clientSettings.ClientLicense });
