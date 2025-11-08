@@ -8,6 +8,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MoCiProxyClient.Features;
 using MoCiProxyClient.Models;
+using MoCiProxyClient.Services;
+using MoCiProxyClient.Views;
 using MoCiVerification.Services;
 using SukiUI.Toasts;
 
@@ -22,12 +24,21 @@ public partial class ProxyViewModel:LoginPage
     private readonly ClientSettings _settings;
     private readonly ISukiToastManager _toastManager;
     private readonly IProxyService _proxyService;
-    public ProxyViewModel(ISukiToastManager toastManager, ClientSettings settings,IProxyService proxyService) : base("Proxy")
+    private readonly IShowWindowManager _showWindowManager;
+    public ProxyViewModel(ISukiToastManager toastManager, ClientSettings settings,IProxyService proxyService,IShowWindowManager ishowwindowmanager) : base("Proxy")
     {
         _settings = settings;
         _toastManager = toastManager;
         _proxyService = proxyService;
+        _showWindowManager = ishowwindowmanager;
     }
+    [RelayCommand]
+    public async Task AddCard()
+    {
+        await _showWindowManager.ShowDialogAsync<AddCardView, AddCardViewModel>();
+
+    }
+    
     [RelayCommand]
     public async Task Reflash()
     {

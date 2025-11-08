@@ -73,7 +73,9 @@ public partial class App : Application
             // Add main view
             .AddView<MainMoCiView, MainMoCiViewModel>(services)
             .AddView<LoginView, LoginViewModel>(services)
+            .AddView<AddCardView, AddCardViewModel>(services)
             .AddView<ProxyView, ProxyViewModel>(services);
+            
 
 
 
@@ -109,7 +111,7 @@ public partial class App : Application
         services.AddSingleton<MoCiRequestService>(sp =>
         {
             var factory = sp.GetRequiredService<IHttpClientFactory>();
-            var httpClient = factory.CreateClient();
+            var httpClient = factory.CreateClient("NodeClient");
             return new MoCiRequestService(httpClient);
         });
         return services.BuildServiceProvider();

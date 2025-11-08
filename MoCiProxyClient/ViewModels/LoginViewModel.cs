@@ -22,7 +22,7 @@ public partial class LoginViewModel:LoginPage
     [ObservableProperty]
     [MinLength(1,ErrorMessage = "TOKEN至少1个字符")] private string? _token;
     [ObservableProperty][Required(ErrorMessage = "密码不能为空")]
-    [MinLength(6,ErrorMessage = "密码至少6个字符")] [MaxLength(20,ErrorMessage = "密码最多20个字符")] private string? _password;
+    [MinLength(3,ErrorMessage = "密码至少3个字符")] [MaxLength(20,ErrorMessage = "密码最多20个字符")] private string? _password;
     private readonly LoginNavigationService _loginNavigationService;
     private readonly ISukiDialogManager _dialogManager;
     private readonly IProxyService _proxyService;
@@ -58,7 +58,9 @@ public partial class LoginViewModel:LoginPage
         var r = await _proxyService.AgentLogin(Token, Username, Password);
         if (r)
         {
-            //_loginNavigationService.RequestNavigation<RegisterViewModel>();
+            _loginNavigationService.RequestNavigation<ProxyViewModel>();
+            
+            IsLoggingIn = false;
         }
         else
         {

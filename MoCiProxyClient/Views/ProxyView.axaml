@@ -18,7 +18,7 @@
             <suki:GroupBox.Header>
                 <DockPanel>
                     <TextBlock Classes="Flat" Text="卡密管理" DockPanel.Dock="Left" FontSize="18" VerticalAlignment="Center"/>
-                    <Button Classes="Flat" Width="100" Content="创建卡密" HorizontalAlignment="Right" DockPanel.Dock="Right" Command="{Binding }" />
+                    <Button Classes="Flat" Width="100" Content="创建卡密" HorizontalAlignment="Right" DockPanel.Dock="Right" Command="{Binding AddCardCommand}" />
                 </DockPanel>
             </suki:GroupBox.Header> 
                 <DataGrid MinWidth="350"  SelectedItem="{Binding SelectedItem}"

@@ -26,7 +26,7 @@ public class MoCiRequestService
 
         var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         
-        return result.Length > 1 ? result.Substring(1) : result;
+        return result;
     }
 
     private string BuildRequestData(string header, string type, string[] parameters,bool NoCache)

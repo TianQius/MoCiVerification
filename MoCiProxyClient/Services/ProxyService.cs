@@ -28,15 +28,17 @@ public class ProxyService:IProxyService
     }
     public async Task<bool> AgentLogin(string token,string username, string password)
     {
+        await Execute("代理", "代理退登", new[] { token, username });
         var result = await Execute("代理", "代理登录", new[] {token ,username, password });
+        Console.WriteLine(result);
         var parts = result.Split("|||");
         _clientSettings.GlobalMessage = result;
         if (parts.Length == 2)
         {
-            if (parts[0] == "代理登录成功")
+            if (parts[0].Contains("登录成功"))
             {
                 var r = await Execute("代理", "代理回调", new[] {token ,parts[1] });
-                if (r.Contains("代理回调成功"))
+                if (r.Contains("回调成功"))
                 {
                     _clientSettings.ClientLicense = parts.Length > 1 ? parts[1] : null;
                     _clientSettings.UserName = username;
@@ -62,5 +64,12 @@ public class ProxyService:IProxyService
         var result = await Execute("代理", "代理删除卡密", new[] {_clientSettings.ProjectToken ,card,_clientSettings.ClientLicense});
         _clientSettings.GlobalMessage = result;
         return result == "代理删除卡密成功";
+    }
+    public async Task<bool> AddCard(string count,string cardtype,string first ,string mark)
+    {
+        var result = await Execute("代理", "代理新增卡密",
+            new[] { _clientSettings.ProjectToken, count, cardtype, first, mark, _clientSettings.ClientLicense });
+        _clientSettings.GlobalMessage = result;
+        return result != "代理新增卡密失败";
     }
 }

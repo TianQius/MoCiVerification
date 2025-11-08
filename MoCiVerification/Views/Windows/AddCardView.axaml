@@ -61,7 +61,7 @@
                             <TextBox suki:TextBoxExtensions.Prefix="{icon:MaterialIconExt Kind=DramaMasks}"
                                      Classes="clearButton" TextWrapping="Wrap"
                                      Text="{Binding Mark}"
-                                     Watermark="Your announcement"/>
+                                     Watermark="Your mark"/>
                 </StackPanel>
             </suki:BusyArea>
             
