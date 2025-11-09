@@ -18,7 +18,7 @@ namespace MoCiProxyClient.ViewModels;
 public partial class ProxyViewModel:LoginPage
 {
     [ObservableProperty] private DataGridCollectionView _dataGridContent;
-    [ObservableProperty] private ProxyDataGridContent selectedItem;
+    [ObservableProperty] private ProxyDataGridContent _selectedItem;
     [ObservableProperty] private ObservableCollection<ProxyDataGridContent> _selectedItems = new();
     [ObservableProperty] private bool _isLoading = false;
     private readonly ClientSettings _settings;
@@ -50,7 +50,7 @@ public partial class ProxyViewModel:LoginPage
     {
         if (SelectedItems.Count == 1)
         {
-            var r = await _proxyService.DeleteCard( SelectedItem.Card);
+            var r = await _proxyService.DeleteCard(SelectedItem.Card);
             if (r)
             {
                 _toastManager.CreateSimpleInfoToast()

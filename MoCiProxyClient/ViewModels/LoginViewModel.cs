@@ -64,12 +64,12 @@ public partial class LoginViewModel:LoginPage
         }
         else
         {
-            await _dialogManager.CreateDialog()
+            _dialogManager.CreateDialog()
                 .WithTitle("登录失败")
                 .WithContent(_clientSettings.GlobalMessage)
                 .WithActionButton("我知道了", _ => { }, true)
                 .OfType(NotificationType.Error)
-                .TryShowAsync();
+                .TryShow();
         }
         IsLoggingIn = false;
     }

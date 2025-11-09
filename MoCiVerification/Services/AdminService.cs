@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MoCiVerification.Converts;
 using MoCiVerification.Models;
+using Newtonsoft.Json;
 
 namespace MoCiVerification.Services;
 
@@ -430,6 +432,56 @@ public class AdminService:IAdminService
             new[] { _clientSettings.UserName, projectName, agent,money, _clientSettings.ClientLicense });
         _clientSettings.GlobalMessage = result;
         return (result.IndexOf("修改代理余额成功") != -1);
+    }
+    
+    public async Task<ProjectCardPrice?> GetProjectCardPrice(string projectName)
+    {
+        try
+        {
+            var json = await Execute("作者", "获取项目卡密价格",
+                new[] { _clientSettings.UserName, projectName, _clientSettings.ClientLicense });
+            _clientSettings.GlobalMessage = json;
+            Console.WriteLine($"serverData2: {json}");
+            var serverData = JsonConvert.DeserializeObject<ServerCardPrice>(System.Net.WebUtility.HtmlDecode(json));
+            Console.WriteLine("serverData: " + System.Net.WebUtility.HtmlDecode(json));
+            
+            
+            
+            if (serverData == null) return null;
+            
+            return  ProjectCardJsonConverter.ConvertFromServerFormat(serverData);
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine($"[MoCi Error] {e.Message}");
+            return null;
+        }
+    }
+    public async Task<bool> ChangeProjectCardPrice(string projectName,ProjectCardPrice? config)
+    {
+        try
+        {
+            if (config == null) return false;
+            var serverFormat = ProjectCardJsonConverter.ConvertToServerFormat(config);
+            var jsonSettings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore, // 忽略空值
+                DefaultValueHandling = DefaultValueHandling.Ignore // 忽略默认值
+            };
+            var serializedConfig = JsonConvert.SerializeObject(serverFormat, Formatting.Indented, jsonSettings);
+            Console.WriteLine("[send json]:" + serializedConfig);
+            var json = await Execute("作者", "修改项目卡密价格",
+                new[] { _clientSettings.UserName, projectName, serializedConfig, _clientSettings.ClientLicense });
+            _clientSettings.GlobalMessage = json;
+            return json == "修改项目卡密价格成功";
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"[MoCi Error] {e.Message}");
+            return false;
+        }
+        
+            
     }
     
 

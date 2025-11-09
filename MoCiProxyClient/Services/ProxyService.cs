@@ -46,7 +46,6 @@ public class ProxyService:IProxyService
                     _clientSettings.ProjectToken = token;
                     return true;
                 }
-                
             }
         }
         return false;
@@ -61,7 +60,8 @@ public class ProxyService:IProxyService
     }
     public async Task<bool> DeleteCard(string card)
     {
-        var result = await Execute("代理", "代理删除卡密", new[] {_clientSettings.ProjectToken ,card,_clientSettings.ClientLicense});
+        var result = await Execute("代理", "代理删除卡密", new[] {_clientSettings.ProjectToken ,card,
+            _clientSettings.ClientLicense});
         _clientSettings.GlobalMessage = result;
         return result == "代理删除卡密成功";
     }

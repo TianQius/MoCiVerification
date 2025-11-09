@@ -45,7 +45,7 @@
                         <DataGridTextColumn Binding="{Binding Createdtime, DataType=vm:ProxyDataGridContent}" Header="创建时间" MaxWidth="110" />
                         <DataGridTextColumn Binding="{Binding Isused, DataType=vm:ProxyDataGridContent}" Header="使用" />
                         <DataGridTextColumn Binding="{Binding UsedUser, DataType=vm:ProxyDataGridContent}" Header="使用者" MaxWidth="120"/>
-                        <DataGridTextColumn Binding="{Binding Remark, DataType=vm:ProxyDataGridContent}" Header="创建者" />
+                        <DataGridTextColumn Binding="{Binding Remark, DataType=vm:ProxyDataGridContent}" Header="备注" />
                     </DataGrid.Columns>
                 </DataGrid>
         </suki:GroupBox>

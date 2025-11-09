@@ -22,6 +22,8 @@ public class ClientSettings
     public string CurrentCustomDataGetWay { get; set; }
     public bool UseNodeServer { get; set; } = true;
     public bool IsAuto { get; set; } = false;
+    
+    public ProjectCardPrice? CurrentProjectCardPrice { get; set; }
     public string? UserName { get; set; }
     public string? Password { get; set; } 
     

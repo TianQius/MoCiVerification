@@ -68,4 +68,6 @@ public interface IAdminService
     Task<bool> DeleteAgent(string projectName, string username);
     Task<bool> AddAgent(string projectName, string username, string password, string money);
     Task<bool> ChangeAgentMoney(string projectName, string agent, string money);
+    Task<ProjectCardPrice?> GetProjectCardPrice(string projectName);
+    Task<bool> ChangeProjectCardPrice(string projectName, ProjectCardPrice? config);
 }

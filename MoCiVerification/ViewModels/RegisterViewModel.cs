@@ -21,7 +21,6 @@ public partial class RegisterViewModel : LoginPage
     [ObservableProperty][Required(ErrorMessage = "密码不能为空")]
     [MinLength(6,ErrorMessage = "密码至少6个字符")] [MaxLength(20,ErrorMessage = "密码最多20个字符")] private string? _password;
     [ObservableProperty][Required(ErrorMessage = "邮箱不能为空")] 
-    [MinLength(6,ErrorMessage = "邮箱至少6个字符")] [MaxLength(30,ErrorMessage = "邮箱最多30个字符")]
     [EmailAddress(ErrorMessage = "邮箱格式不正确")] private string? _email;
     private readonly IAdminService _adminService;
     private readonly ClientSettings _settings;

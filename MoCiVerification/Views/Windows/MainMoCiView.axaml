@@ -74,9 +74,13 @@
         </suki:SukiWindow.LogoContent>
         
          <suki:SukiWindow.RightWindowTitleBarControls>
-        <Button Classes="WindowControlsButton" Command="{Binding GetOptions}">
-            <avalonia:MaterialIcon Foreground="{DynamicResource SukiText}" Kind="Cog" />
-            <Button.Flyout>
+             <StackPanel Spacing="8" Orientation="Horizontal">
+                 <Button Classes="WindowControlsButton" Command="{Binding  GetProjectCardPriceOptions}">
+                     <avalonia:MaterialIcon Foreground="{DynamicResource SukiText}" Kind="CashMultiple" />
+                 </Button>
+                 <Button Classes="WindowControlsButton" Command="{Binding GetOptions}">
+                     <avalonia:MaterialIcon Foreground="{DynamicResource SukiText}" Kind="Cog" />
+                     <Button.Flyout>
                 <Flyout>
                     <Panel>
                         <Border Margin="20"
@@ -92,7 +96,7 @@
                                 CornerRadius="15">
                             <Border Padding="15" Background="{DynamicResource PopupGradientBrush}">
 
-                                <StackPanel Margin="0,0,0,0" Spacing="20">
+                                <StackPanel Margin="0,0,0,0" Spacing="15">
                                     <suki:GlassCard Padding="15" CornerRadius="15">
 
                                         <DockPanel>
@@ -109,6 +113,7 @@
                                                      DockPanel.Dock="Bottom" VerticalAlignment="Bottom"
                                                      Classes="clearButton"  Text="{Binding BindCount}"
                                                      Watermark="输入绑定次数"/>
+                                            
                                         </DockPanel>
 
                                     </suki:GlassCard>
@@ -126,7 +131,6 @@
                                                        FontSize="15"
                                                        FontWeight="DemiBold"
                                                        Text="云变量" />
-
                                         </DockPanel>
                                     </suki:GlassCard>
                                 </StackPanel>
@@ -136,20 +140,8 @@
                     </Panel>
                 </Flyout>
             </Button.Flyout>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        </Button>
+                 </Button>
+             </StackPanel>
          </suki:SukiWindow.RightWindowTitleBarControls>
         <suki:SukiSideMenu IsSearchEnabled="True"
                        ItemsSource="{Binding Pages}"

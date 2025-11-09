@@ -92,6 +92,7 @@ public partial class App : Application
             .AddView<ChangeProjectView, ChangeProjectViewModel>(services)
             .AddView<ChangeVersionView,ChangeVersionViewModel>(services)
             .AddView<ChangeCustomDataView, ChangeCustomDataViewModel>(services)
+            .AddView<ProjectCardPriceView, ProjectCardPriceViewModel>(services)
             
             // Add pages
             //.AddView<DashboardView, DashboardViewModel>(services)

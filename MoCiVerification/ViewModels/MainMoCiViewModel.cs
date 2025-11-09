@@ -14,6 +14,7 @@ using MoCiVerification.Message;
 using MoCiVerification.Models;
 using MoCiVerification.Services;
 using MoCiVerification.Utilities;
+using MoCiVerification.Views.Windows;
 using SukiUI;
 using SukiUI.Dialogs;
 using SukiUI.Enums;
@@ -42,14 +43,16 @@ public partial class MainMoCiViewModel : ViewModelBase
     private readonly SettingViewModel _settingTheme;
     private readonly ClientSettings _settings;
     private readonly IAdminService _adminService;
+    private readonly IShowWindowManager _showWindowManager;
 
     public MainMoCiViewModel(IEnumerable<PageBase> pages, PageNavigationService pageNavigationService, ISukiToastManager toastManager,
-        ISukiDialogManager dialogManager,IAdminService adminservice, ClientSettings settings)
+        ISukiDialogManager dialogManager,IAdminService adminservice, ClientSettings settings,IShowWindowManager showWindowManager)
     {
         ToastManager = toastManager;
         DialogManager = dialogManager;
         _adminService = adminservice;
         _settings = settings;
+        _showWindowManager = showWindowManager;
         
         Pages = new AvaloniaList<PageBase>(pages .OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
         PageNavigationService = pageNavigationService;
@@ -98,6 +101,12 @@ public partial class MainMoCiViewModel : ViewModelBase
     public async Task GetOptions()
     {
         UseCloudVar = await _adminService.GetVarOption(_settings.CurrentProjectName);
+    }
+    [RelayCommand]
+    public async Task GetProjectCardPriceOptions()
+    {
+        _settings.CurrentProjectCardPrice = await _adminService.GetProjectCardPrice(_settings.CurrentProjectName);
+        await _showWindowManager.ShowDialogAsync<ProjectCardPriceView, ProjectCardPriceViewModel>();
     }
     [RelayCommand]
     public async Task SetVarOption()
