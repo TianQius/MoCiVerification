@@ -91,6 +91,7 @@ public partial class App : Application
             .AddView<ActiveView, ActiveViewModel>(services)
             .AddView<ChangeProjectView, ChangeProjectViewModel>(services)
             .AddView<ChangeVersionView,ChangeVersionViewModel>(services)
+            .AddView<ChangeAgentBalanceView, ChangeAgentBalanceViewModel>(services)
             .AddView<ChangeCustomDataView, ChangeCustomDataViewModel>(services)
             .AddView<ProjectCardPriceView, ProjectCardPriceViewModel>(services)
             
@@ -141,26 +142,12 @@ public partial class App : Application
                 AutomaticDecompression = System.Net.DecompressionMethods.All,
                 ServerCertificateCustomValidationCallback = (_, _, _, _) => true
             });
-        services.AddHttpClient("DirectClient", client =>
-            {
-                client.BaseAddress = new Uri("http://111.231.13.26:82/api.php");
-                client.Timeout = TimeSpan.FromSeconds(5);
-                client.DefaultRequestVersion = HttpVersion.Version11;
-            })
-            .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
-            {
-                MaxConnectionsPerServer = 100,
-                AutomaticDecompression = System.Net.DecompressionMethods.All,
-            });
 
         services.AddSingleton<MoCiRequestService>(sp =>
         {
             var factory = sp.GetRequiredService<IHttpClientFactory>();
             var settings = sp.GetRequiredService<ClientSettings>();
-
-            string clientName = settings.UseNodeServer ? "NodeClient" : "DirectClient";
-
-            var httpClient = factory.CreateClient(clientName);
+            var httpClient = factory.CreateClient("NodeClient");
             return new MoCiRequestService(httpClient);
         });
         return services.BuildServiceProvider();

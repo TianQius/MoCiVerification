@@ -57,6 +57,12 @@ public partial class AgentViewModel:PageBase
         await LoadAgentsAsync();
     }
     [RelayCommand]
+    public async Task ChangeAgentBalance()
+    {
+        await _showWindowManager.ShowDialogAsync<ChangeAgentBalanceView, ChangeAgentBalanceViewModel>();
+
+    }
+    [RelayCommand]
     public async Task AddAgent()
     {
         await _showWindowManager.ShowDialogAsync<AddAgentView, AddAgentViewModel>();

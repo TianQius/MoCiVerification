@@ -50,13 +50,11 @@ public partial class AddCardViewModel:ObservableObject
 
         if (r)
         {
-            await WriteCardsToDesktopAsync(_clientSettings.GlobalMessage);
             _toastManager.CreateSimpleInfoToast()
                 .WithTitle("卡密发生变化")
-                .WithContent("创建卡密成功！已生成卡密至桌面（卡密_XXXXX.txt）")
+                .WithContent("创建卡密成功！")
                 .OfType(NotificationType.Success)
                 .Queue();
-            //_clientSettings.GlobalMessage 是卡密数据
             RequestClose?.Invoke();
         }
         else

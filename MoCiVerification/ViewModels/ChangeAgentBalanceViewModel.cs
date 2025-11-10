@@ -3,44 +3,36 @@ using System.Threading.Tasks;
 using Avalonia.Controls.Notifications;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using MoCiVerification.Message;
 using MoCiVerification.Models;
 using SukiUI.Toasts;
 
 namespace MoCiVerification.ViewModels;
 
-public partial class ChangeProjectViewModel :ObservableObject
+public partial class ChangeAgentBalanceViewModel:ObservableObject
 {
     public event Action? RequestClose;
-
-    [ObservableProperty] private bool _isChanging;
-    [ObservableProperty] private string _projectAnnounce;
     private readonly IAdminService _adminService;
     private readonly ClientSettings _clientSettings;
     private readonly ISukiToastManager _toastManager;
+    [ObservableProperty] private bool _isChanging;
+    [ObservableProperty] private string _money;
 
-    public ChangeProjectViewModel(ISukiToastManager toastManager,IAdminService adminService,ClientSettings clientSettings)
+    public ChangeAgentBalanceViewModel(ISukiToastManager toastManager,IAdminService adminService, ClientSettings clientSettings)
     {
         _adminService = adminService;
         _clientSettings = clientSettings;
         _toastManager = toastManager;
-        WeakReferenceMessenger.Default.Register<LoadProjectAnnouncementMessage>(this, (recipient, message) =>
-        {
-            ProjectAnnounce = _clientSettings.CurrentProjectAnnouncement;
-        });
     }
-
     [RelayCommand]
-    public async Task ChangeProject()
+    public async Task ChangeBalance()
     {
-        IsChanging = true;
-        var r = await _adminService.ChangeProjectAnnouncementAsync(_clientSettings.CurrentProjectName, ProjectAnnounce);
+        var r = await _adminService.ChangeAgentMoney(_clientSettings.CurrentProjectName,
+            _clientSettings.CurrentAgentName, Money);
         if (r)
         {
             _toastManager.CreateSimpleInfoToast()
-                .WithTitle("项目公告发生变化")
-                .WithContent("修改项目公告成功！请耐心等待并刷新（有缓存）")
+                .WithTitle("代理余额发生变化")
+                .WithContent("改代理余额成功！请耐心等待并刷新（有缓存）")
                 .OfType(NotificationType.Success)
                 .Queue();
             RequestClose?.Invoke();
@@ -48,14 +40,11 @@ public partial class ChangeProjectViewModel :ObservableObject
         else
         {
             _toastManager.CreateSimpleInfoToast()
-                .WithTitle("修改项目公告失败")
+                .WithTitle("修改代理余额失败")
                 .WithContent(_clientSettings.GlobalMessage)
                 .OfType(NotificationType.Error)
                 .Queue();
         }
-
-        IsChanging = false;
-        
     }
-
+    
 }

@@ -11,6 +11,8 @@ public class ClientSettings
     public readonly object SearchRecipient = new();
 
     public string CurrentProjectName { get; set; }
+    
+    public string CurrentAgentName { get; set; }
     public string CurrentProjectAnnouncement { get; set; }
     
     public string CurrentVersion { get; set; }

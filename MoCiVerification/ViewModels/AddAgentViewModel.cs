@@ -40,7 +40,6 @@ public partial class AddAgentViewModel:ObservableObject
                 .Queue();
             return;
         }
-
         var r = await _adminService.AddAgent(_clientSettings.CurrentProjectName, UserName, PassWord, Money);
         if (r)
         {
@@ -59,9 +58,6 @@ public partial class AddAgentViewModel:ObservableObject
                 .OfType(NotificationType.Error)
                 .Queue();
         }
-        
-        
-        
     }
     
     

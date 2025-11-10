@@ -94,11 +94,6 @@ public partial class ProjectViewModel:PageBase
     {
         _settings.CurrentProjectAnnouncement = SelectedItem.Announcement;
         await _showWindowManager.ShowDialogAsync<ChangeProjectView,ChangeProjectViewModel>();
-        _toastManager.CreateSimpleInfoToast()
-            .WithTitle("项目发生变化")
-            .WithContent("改变项目属性成功！请耐心等待并刷新（有缓存）")
-            .OfType(NotificationType.Success)
-            .Queue();
     }
 
     private async Task CreateProjectCommand(bool r)

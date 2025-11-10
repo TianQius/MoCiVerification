@@ -115,12 +115,7 @@ public partial class DataViewModel:PageBase
         _settings.CurrentCustomDataKey = SelectedItem.Key;
         _settings.CurrentCustomDataMask = SelectedItem.Remark;
         await _showWindowManager.ShowDialogAsync<ChangeCustomDataView,ChangeCustomDataViewModel>();
-            _toastManager.CreateSimpleInfoToast()
-                .WithTitle("数据发生变化")
-                .WithContent("数据属性修改成功！请耐心等待并刷新（有缓存）")
-                .OfType(NotificationType.Success)
-                
-                .Queue();
+            
         
     }
     

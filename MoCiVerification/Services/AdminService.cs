@@ -465,11 +465,11 @@ public class AdminService:IAdminService
             var serverFormat = ProjectCardJsonConverter.ConvertToServerFormat(config);
             var jsonSettings = new JsonSerializerSettings
             {
-                NullValueHandling = NullValueHandling.Ignore, // 忽略空值
-                DefaultValueHandling = DefaultValueHandling.Ignore // 忽略默认值
+                NullValueHandling = NullValueHandling.Ignore, 
+                DefaultValueHandling = DefaultValueHandling.Ignore 
             };
-            var serializedConfig = JsonConvert.SerializeObject(serverFormat, Formatting.Indented, jsonSettings);
-            Console.WriteLine("[send json]:" + serializedConfig);
+            var serializedConfig = JsonConvert.SerializeObject(serverFormat, Formatting.None, jsonSettings);
+            Console.WriteLine("[send json]:" + serializedConfig.Trim());
             var json = await Execute("作者", "修改项目卡密价格",
                 new[] { _clientSettings.UserName, projectName, serializedConfig, _clientSettings.ClientLicense });
             _clientSettings.GlobalMessage = json;

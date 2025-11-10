@@ -140,11 +140,6 @@ public partial class VersionViewModel:PageBase
         _settings.CurrentVersionData = SelectedItem.Data;
         _settings.CurrentVersionAnnouncement = SelectedItem.Announcement;
         await _showWindowManager.ShowDialogAsync<ChangeVersionView,ChangeVersionViewModel>();
-            _toastManager.CreateSimpleInfoToast()
-                .WithTitle("版本发生变化")
-                .WithContent("版本属性修改成功！请耐心等待并刷新（有缓存）")
-                .OfType(NotificationType.Success)
-                .Queue();
         
 
     }

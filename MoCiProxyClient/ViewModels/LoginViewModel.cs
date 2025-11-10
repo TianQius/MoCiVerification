@@ -54,7 +54,6 @@ public partial class LoginViewModel:LoginPage
             IsLoggingIn = false;
             return;
         }
-
         var r = await _proxyService.AgentLogin(Token, Username, Password);
         if (r)
         {

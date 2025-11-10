@@ -32,6 +32,7 @@
                     <DataGrid.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="刷新" Command="{Binding Reflash}"/>
+                            <MenuItem Header="修改余额"  Command="{Binding ChangeAgentBalance}"/>
                             <MenuItem Header="删除代理"  Command="{Binding DeleteAgent}"/>
                             <MenuItem Header="停用代理"  Command="{Binding StopAgent}" />
                             <MenuItem Header="恢复代理" Command="{Binding RecoverAgent}" />
