@@ -4,7 +4,8 @@
 [![Avalonia](https://img.shields.io/badge/UI-Avalonia-purple)](https://avaloniaui.net/)
 > 一个轻量级、安全的网络验证解决方案，支持软件授权、用户身份校验与用户状态管理。
 >
-> 该项目为验证作者端源码，服务端代码重构中暂不开源，功能正常使用
+> 服务端代码重构中暂不开源，该项目编译即可正常使用
+>
 
 
 - ## ✨ 核心功能
