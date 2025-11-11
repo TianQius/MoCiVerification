@@ -4,7 +4,7 @@
 [![Avalonia](https://img.shields.io/badge/UI-Avalonia-purple)](https://avaloniaui.net/)
 > 一个轻量级、安全的网络验证解决方案，支持软件授权、用户身份校验与用户状态管理。
 >
-> 服务端代码重构中暂不开源，该项目编译即可正常使用
+> 该项目通过API与服务器通信并进行一系列操作，无服务端
 >
 
 
@@ -33,12 +33,12 @@
 ```bash
 git clone https://github.com/TianQius/MoCiVerification.git
 ```
+- 在IDE中编译后即可使用
 ### Release下载运行
 - 📥 下载最新版本：[Releases](https://github.com/TianQius/MoCiVerification/releases)
 ## ⚠️ 安全建议
-- 不要攻击！不要攻击！不要攻击！重要的事情说三遍
-- 不要抓包！不要抓包！不要抓包！重要的事情说三遍
+- 不要随意删减代码，避免无法编译或编译后无法正常使用
 
 ## 📄 许可证
-- 本项目采用 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) —— 免费用于个人或商业项目。
+- 本项目采用 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) —— 免费用于个人或商业项目（请标明来处）。
   
