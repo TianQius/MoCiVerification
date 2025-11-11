@@ -32,9 +32,9 @@ public partial class MainMoCiViewModel : ViewModelBase
         {
             ContentViewModel = pageInstance;
             ToastManager.CreateSimpleInfoToast()
-                .WithTitle("界面已切换")
-                .WithContent($"界面切换成功")
-                .Dismiss().After(TimeSpan.FromSeconds(1))
+                .WithTitle("登录成功！")
+                .WithContent($"欢迎使用陌辞验证代理端")
+                .Dismiss().After(TimeSpan.FromSeconds(3))
                 .Queue();
         }
     }

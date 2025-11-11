@@ -58,7 +58,6 @@ public partial class LoginViewModel:LoginPage
         if (r)
         {
             _loginNavigationService.RequestNavigation<ProxyViewModel>();
-            
             IsLoggingIn = false;
         }
         else

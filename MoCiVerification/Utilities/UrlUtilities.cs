@@ -5,10 +5,6 @@ namespace MoCiVerification.Utilities;
 
 public static class UrlUtilities
 {
-    /// <summary>
-    /// Open the URL in the default browser.
-    /// </summary>
-    /// <param name="url"></param>
     public static void OpenUrl(string url)
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
